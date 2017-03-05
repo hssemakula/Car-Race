@@ -7,6 +7,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
+import java.awt.Graphics;
+import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -39,6 +42,7 @@ public class StarterPanel1 extends JPanel
    */ 
   public void innitialize(JButton join, JButton cancel)
   {
+    setBackground(new Color(95,158,160));
     choices = new String[]{"Black", "Blue","Cyan","Gray","Green","Magenta","Orange",
       "Pink","Red","White", "Yellow"};
     listChoices = new JComboBox<String>(choices);
@@ -47,15 +51,18 @@ public class StarterPanel1 extends JPanel
     for(int i = 0; i < holderPanels.length; i++)
     {  
       holderPanels[i] = new JPanel();
-      if(i == 0) holderPanels[i].setPreferredSize(new Dimension(500, 170));
+      if(i == 0) { holderPanels[i].setPreferredSize(new Dimension(500, 170)); holderPanels[0].setBackground(new Color(70,130,180)); }
       else holderPanels[i].setPreferredSize(new Dimension(500, 35));
     }
     
-    intro = new JTextArea("Welcome to the SAHIRO GRANDPIX\n Choose the number of opponents\n"+
-                          "Choose a color for a car and provide your name\n", 7, 30);
+    intro = new JTextArea("         WELCOME TO THE SAHIRO GRANDPRIX\n\n       Choose the number of opponents\n"+
+                          "     Choose a color for a car and provide your name\n", 7, 30);
     intro.setLineWrap(true);
     intro.setEditable(false);
-    holderPanels[0].add(intro);
+    intro.setForeground(new Color(0,0,128));
+    intro.setFont(new Font("dialog", Font.PLAIN, 18));
+    JScrollPane scroller = new JScrollPane(intro, 22, 32);
+    holderPanels[0].add(scroller);
     
     numOpp = new JLabel("CHOOSE NUMBER OF CARS IN RACE(2-10): ");
     numOppTxt = new JTextField(10);
@@ -111,9 +118,13 @@ public class StarterPanel1 extends JPanel
     else return null;
   }
   
+  //method colorString returns string value of the user's chosen color
+  public String colorString(){ return  (String)listChoices.getSelectedItem();}
+  
   //method getUsrName returns string that user inserts in the nameTxt Text Field.
   public String getUsrName()
   {
     return nameTxt.getText();
-  }  
+  } 
+  
 }
