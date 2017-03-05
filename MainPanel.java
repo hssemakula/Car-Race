@@ -4,11 +4,16 @@
  */ 
 
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
+import java.awt.Graphics;
+import javax.swing.JTextArea;
+import java.awt.Graphics2D;
+import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -59,6 +64,7 @@ public class MainPanel extends JPanel implements ActionListener
    */ 
   public void innitialize()
   {
+    
     join = new JButton("JOIN RACE");
     cancel = new JButton("CANCEL");
     join.addActionListener(this);
@@ -68,35 +74,98 @@ public class MainPanel extends JPanel implements ActionListener
     start = new JButton("START");
     reenter.addActionListener(this);
     start.addActionListener(this);
-    starterPanel2 = new StarterPanel2(start, reenter);
     window.getContentPane().add(starterPanel1);
     
     pause = new JButton("PAUSE");
     resume = new JButton("RESUME");
+    resume.setEnabled(false);
     reset = new JButton("RESET");
     stop = new JButton("STOP");
+    pause.addActionListener(this);
+    resume.addActionListener(this);
+    reset.addActionListener(this);
+    stop.addActionListener(this);
     setLayout(new BorderLayout());
     JPanel holderPanel = new JPanel();
-    holderPanel.setPreferredSize(new Dimension(1000,80));
+    holderPanel.setPreferredSize(new Dimension(1000,40));
+    holderPanel.setBackground(new Color(95,158,160));
     holderPanel.add(pause);
     holderPanel.add(resume);
     holderPanel.add(reset);
     holderPanel.add(stop);
     add(holderPanel, BorderLayout.NORTH);
     infoPanel = new JPanel();
-    infoPanel.setPreferredSize(new Dimension(100,420));
-    infoPanel.setBackground(Color.red);
+    infoPanel.setPreferredSize(new Dimension(200,420));
+    infoPanel.setBackground(new Color(70,130,180));
+    setUpInfoPanel();
     add(infoPanel, BorderLayout.WEST);
     scorePanel = new JPanel();
     scorePanel.setPreferredSize(new Dimension(200,420));
-    scorePanel.setBackground(Color.blue);
+    scorePanel.setBackground(new Color(70,130,180));
     add(scorePanel, BorderLayout.EAST);
     timer = new Timer(200, this);
+    
+    JPanel holderPanel2 = new JPanel();
+    holderPanel2.setPreferredSize(new Dimension(1000,30));
+    holderPanel2.setBackground(new Color(95,158,160));
+    holderPanel2.add(new JLabel("Copyright © Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
+    add(holderPanel2, BorderLayout.SOUTH);
   }
   
-  public void paintComponent(ActionEvent e)
+  public void setUpInfoPanel()
   {
-    
+    JPanel holderPanel1 = new JPanel();
+    holderPanel1.setPreferredSize(new Dimension(200, 30));
+    holderPanel1.setBackground(Color.black);
+    infoPanel.add(holderPanel1);
+    JPanel holderPanel2 = new JPanel();
+    holderPanel2.setPreferredSize(new Dimension(200, 200));
+    holderPanel2.setBackground(Color.white);
+    infoPanel.add(holderPanel2);
+    JTextArea manual = new JTextArea("\n\n             MANUAL\n PAUSE:  pauses race\n RESUME:  Resumes race after"+
+                                       " \n pause\n RESET:  Restarts race\n"+
+                                     " STOP:  Stops everything!\n (cancels race)", 10,17);
+    holderPanel2.add(manual);
+    manual.setFont(new Font("dialog", Font.BOLD, 12));
+    manual.setLineWrap(true);
+  }
+  
+  public void drawBanner(Graphics g)
+  {
+    int x = 205;
+    int y = 45;
+    int nextGrid = 0;
+    for(int j = 1; j<=5; j++){
+      for(int i = 1; i<=5; i++)
+      {
+        switch(nextGrid) {
+          case 0:
+            if(i%2 == 0)g.setColor(Color.black);
+            else g.setColor(Color.white);
+            break;
+          case 1:
+            if(i%2 == 0)g.setColor(Color.white);
+            else g.setColor(Color.black);
+            break;
+        }
+        g.fillRect(x,y,7,7);
+        x += 7;
+      }
+      y += 7;
+      x = 205;
+      if(j%2 == 0) nextGrid = 0;
+      else nextGrid = 1;
+    }
+    g.setFont(new Font("dialog", Font.PLAIN, 20));
+    g.setColor(Color.black);
+    g.drawString("SAHIRO GRANDPRIX", 245,72);
+    g.fillRect(240, 78, 600, 2);
+  }  
+  
+  public void paintComponent(Graphics g)
+  {
+    super.paintComponent(g);
+    drawBanner(g);
   }
   
   /* @Override actionPerformed. @param ActionEvent.
@@ -113,7 +182,7 @@ public class MainPanel extends JPanel implements ActionListener
       if(starterPanel1.getOpp() == -1 || starterPanel1.getOpp() > 10 || starterPanel1.getOpp() < 2)
       { 
         JOptionPane.showMessageDialog(this,"Please enter a valid number for number of participants\n"+ 
-                                        "The race should have between  2 and 10 participants","INVALID DATA", 0); 
+                                      "The race should have between  2 and 10 participants","INVALID DATA", 0); 
       }
       else if(starterPanel1.getUsrName().equals(""))
       { 
@@ -124,8 +193,9 @@ public class MainPanel extends JPanel implements ActionListener
         usrColor = starterPanel1.getUsrColor();
         usrName = starterPanel1.getUsrName();
         window.remove(starterPanel1);
+        starterPanel2 = new StarterPanel2(start, reenter, numOpp, starterPanel1.colorString(), usrName);
         window.getContentPane().add(starterPanel2);
-        window.setSize(520, 240);
+        window.setSize(420, 240);
         window.validate();
       }
     }
@@ -145,17 +215,41 @@ public class MainPanel extends JPanel implements ActionListener
       window.setSize(1020, 540);
       window.validate();
       window.repaint();
+    }
+    
+    if(e.getSource() == pause)
+    {
+      resume.setEnabled(true);
+      pause.setEnabled(false);
+    } 
+    if(e.getSource() == resume)
+    {
+      resume.setEnabled(false);
+      pause.setEnabled(true);
     }  
   }
   
   //Main method: creates MainPanel object where race simulation is displayed
-  public static void main(String[] args)
+    public static void main(String[] args)
+   {
+   window = new JFrame();
+   window.setTitle("SAHIRO GRAND PRIX");
+   window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   MainPanel p = new MainPanel();
+   window.pack();
+   window.setVisible(true);
+   } 
+  
+  //Individual tester code for panel
+ /* public static void main(String[] args)
   {
-    window = new JFrame();
+    
+    JFrame window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    MainPanel p = new MainPanel();
+    MainPanel m = new MainPanel();
+    window.add(m);
     window.pack();
     window.setVisible(true);
-  }  
-  
+  } 
+  */
 }  
