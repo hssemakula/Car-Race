@@ -1,31 +1,49 @@
-//Hillary Ssemakula
+/* Hillary Ssemakula. StarterPanel1 class. creates first panel user sees when they start game.
+ * Vontains form used to collect certain configurations for a race as determined by the user
+ */
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.Dimension;
 
 public class StarterPanel1 extends JPanel
 {
-  private JTextArea intro;
+  private JTextArea intro; //TextArea variable to display intoduction
+  //All labels that request information from users are created.
   private JLabel numOpp;
   private JLabel usrColor;
   private JLabel usrName;
+  
+  //All textfield variables that will collect information are made
   private JTextField numOppTxt;
-  private JTextField colorTxt;
   private JTextField nameTxt;
+  //String array to store selectable color choices
+  private String[] choices;
+  //JComboBox that will use array above
+  private JComboBox<String> listChoices;
   
   public StarterPanel1(JButton join, JButton cancel) 
   {
     setPreferredSize(new Dimension(500, 350));
-    innitialize(join, cancel);
+    innitialize(join, cancel); //innitialize method called to set up panel
   }
   
+  /* Method: innitialize. @params JButton join, JButton cancel
+   * adds the join and cancel buttons to panel.
+   * creates color choices(String values) to be displayed by jcombobox 
+   * adds intro textArea, all jlabels, textfields and JCombobox to Panel.
+   */ 
   public void innitialize(JButton join, JButton cancel)
   {
-    JPanel[] holderPanels = new JPanel[5];
+    choices = new String[]{"Black", "Blue","Cyan","Gray","Green","Magenta","Orange",
+      "Pink","Red","White", "Yellow"};
+    listChoices = new JComboBox<String>(choices);
+    
+    JPanel[] holderPanels = new JPanel[5]; //this array contains 'holder panels used purely for organization of other objects on bigger panel
     for(int i = 0; i < holderPanels.length; i++)
     {  
       holderPanels[i] = new JPanel();
@@ -33,40 +51,69 @@ public class StarterPanel1 extends JPanel
       else holderPanels[i].setPreferredSize(new Dimension(500, 35));
     }
     
-    intro = new JTextArea("Welcome to the SRH Car Simulation\n Choose the number of opponents\n"+
+    intro = new JTextArea("Welcome to the SAHIRO GRANDPIX\n Choose the number of opponents\n"+
                           "Choose a color for a car and provide your name\n", 7, 30);
     intro.setLineWrap(true);
     intro.setEditable(false);
     holderPanels[0].add(intro);
     
-    numOpp = new JLabel("CHOOSE NUMBER OF OPPONENTS: ");
+    numOpp = new JLabel("CHOOSE NUMBER OF CARS IN RACE(2-10): ");
     numOppTxt = new JTextField(10);
     holderPanels[1].add(numOpp); holderPanels[1].add(numOppTxt);
     usrColor = new JLabel("CHOOSE COLOR OF CAR: ");
-    colorTxt = new JTextField(10);
-    holderPanels[2].add(usrColor); holderPanels[2].add(colorTxt);
+    holderPanels[2].add(usrColor); holderPanels[2].add(listChoices);
     usrName = new JLabel("CHOOSE NAME OF CAR: ");
     nameTxt = new JTextField(10);
     holderPanels[3].add(usrName); holderPanels[3].add(nameTxt);
     
     holderPanels[4].add(join);
     holderPanels[4].add(cancel); 
-    
-    for(JPanel p: holderPanels) add(p);
+    //all objects are placed on 'holder panels' that are then placed on the bigger panel
+    for(JPanel p: holderPanels) add(p); 
   }
   
+  /* Method getOpp: returns integer value representing the number of participants that the user wants
+   *                this number is extracted from the numOppTxt text field.
+   */
   public Integer getOpp()
   {
-    return 0;
+    int num;
+    //try-catch harness extracts digit if actual digit is entered and sets num to it, else num is set to -1
+    try
+    {
+      num = Integer.parseInt(numOppTxt.getText()); 
+    }
+    catch(Exception e)
+    {
+      num = -1;
+    }
+    return num;
   }
-  
-  public Color getUserColor()
+
+  /* Method getUsrColor: returns Color Object corresponding to color choice selected on drop down by user
+   * this color choice is extracted as a string from the listChoices jcombobox's selected choice
+   */
+  public Color getUsrColor()
   {
-    return null;
+    String colorChoice = (String)listChoices.getSelectedItem(); //string value of selected choice stored
+    //corresponding Color object return i.e Color.black for "Black"
+    if(colorChoice.equals("Black")) return Color.black; 
+    else if(colorChoice.equals("Blue")) return Color.blue;
+    else if(colorChoice.equals("Cyan")) return Color.cyan;
+    else if(colorChoice.equals("Gray")) return Color.gray;
+    else if(colorChoice.equals("Green")) return Color.green;
+    else if(colorChoice.equals("Magenta")) return Color.magenta;
+    else if(colorChoice.equals("Orange")) return Color.orange;
+    else if(colorChoice.equals("Pink")) return Color.pink;
+    else if(colorChoice.equals("Red")) return Color.red;
+    else if(colorChoice.equals("White")) return Color.white; 
+    else if(colorChoice.equals("Yellow")) return Color.yellow;
+    else return null;
   }
   
+  //method getUsrName returns string that user inserts in the nameTxt Text Field.
   public String getUsrName()
   {
-    return "";
+    return nameTxt.getText();
   }  
 }
