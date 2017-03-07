@@ -30,7 +30,7 @@ public class Car implements Drawable {
         setPath(path);
         this.name = name;
     }
-    Because remember the car has a name and the setPath method sets the string and pathQueue
+    Because remember the car has a name and the setPath method sets the path string and pathQueue
     */
     
     public Car(Queue<String> pathQueue ) {
