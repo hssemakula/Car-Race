@@ -27,7 +27,7 @@ public class Car implements Drawable {
     double[] values = {4.7, 9.0, 3.5, 7.6, 10.0, 1.5, 2.8, 5.5, 6.0, 8.8};
     private final Random random = new Random();
 
-    public Car(Queue<String> pathQueue) {
+    public Car(Queue<String> pathQueue /*Color carColor*/) {
         this.pathQueue = pathQueue;
     }
 
