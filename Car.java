@@ -45,6 +45,7 @@ public class Car implements Drawable {
         boolean isNegative = false;
 
         if ((newX - x) < 0) isNegative = true;
+        //increment = random decrease in tires and engine i.e increment = int(tires - (Math.random() * 3) + engine - (Math.random() * 3));
         int increment = (int) (Math.random() * 5);
         double gradient;
         double yIntercept;
@@ -80,7 +81,15 @@ public class Car implements Drawable {
     public long getTime() {
         return time;
     }
-
+    
+    @kyekiriwo
+    /* @kyekiriwo's thoughts on the distance: The distance of the car is the distance moved from the first checkpoint to the last.
+     * which is the summation of all individual movements in the move method. 
+     * Example if a car started at coordnate (250, 250) and moves to (259, 310), it's distance is d = Math.sqrt((310-250)^2 + (259-250)^2)
+     * which is the length of that segment. if it moves from (259, 310) and moves to (270, 350), then its the old d1 + the new calculation of d
+     * D = d1 + d2. This is the true distance. But I made this suggestion because the rank of the car on the scoreboard will be dertimined by its distance covered 
+     * so far in the race until the race is done. thats when the time will be consdered.
+     */
     public void setDistance(double d) {
         d = distance;
         distance = values[random.nextInt(values.length)];
@@ -89,7 +98,12 @@ public class Car implements Drawable {
     public double getDistance() {
         return distance;
     }
-
+    
+    @kyekiriwo
+    /* @kyekiriwo. When the method receives the String, the String contains 4 letters. set the path instance variable
+     * first. then split the string into an array using the .split("") method in the String Class. Then add the individual Strings
+     * to the pathQueue.
+     */
     public void setPath(String p) {
         // this method is throwing me for a loop, can I please ask for some help?
     }
@@ -115,10 +129,13 @@ public class Car implements Drawable {
     public double getTire() {
         return tire;
     }
-
+    
+    @kyekiriwo
+    //speed = distance/time
     public void setSpeed(double s) {
         s = speed;
         speed = tire + engine;
+        //return distance/time;
     }
 
     public double getSpeed() {
