@@ -42,11 +42,14 @@ public class MainPanel extends JPanel implements ActionListener
   
   //Timer variable contols movement of cars every 200ms
   private Timer timer;
-  private boolean status; //keeps track. stores true/false depending on whether race is over or not.
+  private Timer timer2;
+  private boolean isOver; //keeps track. stores true/false depending on whether race is over or not.
   private Integer numOpp; //stores number of race participants that user chooses (2-10)
   private Color usrColor; //stores color that user chooses from drop down menu
   private String usrName; //stores name that user enters at start
   public static JFrame window; //Static window varible, as panels change during setup they are placed here.
+  private int startCounter;
+  private JTextArea scoreBoard;
   
   public MainPanel() 
   {
@@ -74,7 +77,9 @@ public class MainPanel extends JPanel implements ActionListener
     start = new JButton("START");
     reenter.addActionListener(this);
     start.addActionListener(this);
-    window.getContentPane().add(starterPanel1);
+    startCounter = 0;
+    isOver = false;
+    //window.getContentPane().add(starterPanel1);
     
     pause = new JButton("PAUSE");
     resume = new JButton("RESUME");
@@ -95,15 +100,18 @@ public class MainPanel extends JPanel implements ActionListener
     holderPanel.add(stop);
     add(holderPanel, BorderLayout.NORTH);
     infoPanel = new JPanel();
-    infoPanel.setPreferredSize(new Dimension(200,420));
+    infoPanel.setPreferredSize(new Dimension(200,430));
     infoPanel.setBackground(new Color(70,130,180));
     setUpInfoPanel();
     add(infoPanel, BorderLayout.WEST);
     scorePanel = new JPanel();
-    scorePanel.setPreferredSize(new Dimension(200,420));
+    scorePanel.setPreferredSize(new Dimension(200,430));
     scorePanel.setBackground(new Color(70,130,180));
+    setUpScorePanel();
     add(scorePanel, BorderLayout.EAST);
     timer = new Timer(200, this);
+    timer2 = new Timer(700, this);
+    
     
     JPanel holderPanel2 = new JPanel();
     holderPanel2.setPreferredSize(new Dimension(1000,30));
@@ -119,15 +127,33 @@ public class MainPanel extends JPanel implements ActionListener
     holderPanel1.setBackground(Color.black);
     infoPanel.add(holderPanel1);
     JPanel holderPanel2 = new JPanel();
-    holderPanel2.setPreferredSize(new Dimension(200, 200));
+    holderPanel2.setPreferredSize(new Dimension(200, 300));
     holderPanel2.setBackground(Color.white);
     infoPanel.add(holderPanel2);
     JTextArea manual = new JTextArea("\n\n             MANUAL\n PAUSE:  pauses race\n RESUME:  Resumes race after"+
-                                       " \n pause\n RESET:  Restarts race\n"+
+                                     " \n pause\n RESET:  Restarts race\n"+
                                      " STOP:  Stops everything!\n (cancels race)", 10,17);
     holderPanel2.add(manual);
     manual.setFont(new Font("dialog", Font.BOLD, 12));
+    manual.setEditable(false);
     manual.setLineWrap(true);
+  }
+  
+  public void setUpScorePanel()
+  {
+    JPanel holderPanel1 = new JPanel();
+    holderPanel1.setPreferredSize(new Dimension(200, 30));
+    holderPanel1.setBackground(Color.black);
+    scorePanel.add(holderPanel1);
+    JPanel holderPanel2 = new JPanel();
+    holderPanel2.setPreferredSize(new Dimension(200, 300));
+    holderPanel2.setBackground(Color.white);
+    scorePanel.add(holderPanel2);
+    scoreBoard = new JTextArea("", 10,17);
+    holderPanel2.add(scoreBoard);
+    scoreBoard.setEditable(false);
+    scoreBoard.setFont(new Font("dialog", Font.BOLD, 12));
+    scoreBoard.setLineWrap(true);
   }
   
   public void drawBanner(Graphics g)
@@ -160,12 +186,29 @@ public class MainPanel extends JPanel implements ActionListener
     g.setColor(Color.black);
     g.drawString("SAHIRO GRANDPRIX", 245,72);
     g.fillRect(240, 78, 600, 2);
-  }  
+  }
+  
+  public void drawCounter(Graphics g)
+  {
+    if(startCounter < 3) g.setColor(Color.blue);
+    else g.setColor(Color.red);
+    g.setFont(new Font("Dialog", Font.BOLD, 100));
+    g.drawString(""+startCounter, 450,240);
+  }
   
   public void paintComponent(Graphics g)
   {
     super.paintComponent(g);
     drawBanner(g);
+    if(startCounter < 4) drawCounter(g);
+    else
+    {
+      if(!isOver)event.draw(g);
+      else
+      {
+        g.drawString(event.getWinner() + event.getContestants(), 210, 100);
+      }
+    }  
   }
   
   /* @Override actionPerformed. @param ActionEvent.
@@ -215,6 +258,7 @@ public class MainPanel extends JPanel implements ActionListener
       window.setSize(1020, 540);
       window.validate();
       window.repaint();
+      timer2.start();
     }
     
     if(e.getSource() == pause)
@@ -226,30 +270,51 @@ public class MainPanel extends JPanel implements ActionListener
     {
       resume.setEnabled(false);
       pause.setEnabled(true);
+    }
+    if(e.getSource() == timer2)
+    {
+      startCounter += 1;
+      repaint();
+      if(startCounter == 4)
+      { 
+        timer2.stop();
+        event = new RaceEvent(usrName, numOpp);
+        scoreBoard.setText(event.getContestants());
+        timer.start();
+      }
+    }
+    if(e.getSource() == timer)
+    {
+      if(event.race())
+      {
+      scoreBoard.setText(event.getContestants());
+      repaint();
+      }
+      else isOver = true; 
     }  
   }
   
-  //Main method: creates MainPanel object where race simulation is displayed
-    public static void main(String[] args)
+//  //Main method: creates MainPanel object where race simulation is displayed
+//  public static void main(String[] args)
+//  {
+//    window = new JFrame();
+//    window.setTitle("SAHIRO GRAND PRIX");
+//    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//    MainPanel p = new MainPanel();
+//    window.pack();
+//    window.setVisible(true);
+//  } 
+  
+  //Individual tester code for panel
+  public static void main(String[] args)
    {
-   window = new JFrame();
-   window.setTitle("SAHIRO GRAND PRIX");
+   
+   JFrame window = new JFrame();
    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   MainPanel p = new MainPanel();
+   MainPanel m = new MainPanel();
+   window.add(m);
    window.pack();
    window.setVisible(true);
    } 
-  
-  //Individual tester code for panel
- /* public static void main(String[] args)
-  {
-    
-    JFrame window = new JFrame();
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    MainPanel m = new MainPanel();
-    window.add(m);
-    window.pack();
-    window.setVisible(true);
-  } 
-  */
+   
 }  
