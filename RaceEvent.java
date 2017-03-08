@@ -1,4 +1,3 @@
-//Hillary Ssemakula
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Random;
@@ -14,7 +13,6 @@ public class RaceEvent
   public RaceEvent(String usrName, Integer numOpp)
   {
     innitialize(usrName, numOpp);
-    
   } 
   
   public void innitialize(String usrName, Integer numOpp)
@@ -26,6 +24,7 @@ public class RaceEvent
     {
       contestants.add(new Car(generatePath(), "Racer "+i));
     }
+    track = new RaceTrack();
   } 
   
   public boolean race()
@@ -55,6 +54,8 @@ public class RaceEvent
     for(Car c: contestants) view += c.toString() + "\n";
     return view;
   }
+  
+  public String getWinner(){ return""; }
   
   public void draw(Graphics g)
   {
