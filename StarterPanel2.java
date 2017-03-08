@@ -34,7 +34,7 @@ public class StarterPanel2 extends JPanel
       else holderPanels[i].setPreferredSize(new Dimension(500, 50)); //second holder panel
     }
     
-    startIntro = new JTextArea("         CLICK START TO RACE\n         CLICK RESET TO MODIFY RACE\n"+
+    startIntro = new JTextArea("         CLICK START TO RACE\n         CLICK RE-ENTER TO MODIFY RACE\n"+
                                  "\n         RACE CONFIGURATION\n         Number of participants: "+participants+
                                "\n         Color of your Car: "+color+"\n         Your name: "+name, 5, 30);
     startIntro.setForeground(new Color(0,100,0));
