@@ -105,13 +105,15 @@ public class Car implements Drawable {
         return distance;
     }
 
+
     public void setPath(String p) {
         p = path;
-        Iterator<Drawable> routeIterator = route.iterator();
-        for (int i = 0; i <= route.size(); i++) {
-            path = route[i];
-        }
+        //Iterator<Drawable> routeIterator = route.iterator();
+        //for (int i = 0; i <= route.size(); i++) {
+          //  path = route[i];
+        //}
     }
+
 
     public String getPath() {
         return path;
