@@ -106,6 +106,9 @@ public class Car implements Drawable {
         return time;
     }
 
+    /* So this method should take in the old coordinates and the ones just calculated and using that formular that you have
+     * in the else if  it should then calcualte a certain value and should add it to the current value of distance.
+     */
     public void setDistance(double d, Checkpoint checkpoint) {
         int x2 = checkpoint.getXValue();
         int y2 = checkpoint.getYValue();
