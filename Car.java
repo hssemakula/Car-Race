@@ -167,7 +167,7 @@ public class Car implements Drawable {
     }
 
     public String toString() {
-        return name + " " + speed + " " + distance;
+        return name + "          " + speed + "          " + distance+"          "+pathString;
     }
 
 
