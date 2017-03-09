@@ -13,7 +13,7 @@ public class Car implements Drawable {
 
     private int x;
     private int y;
-    private String path;
+    private int newX, newY;
     private Queue<String> pathQueue;
     private ArrayDeque<Drawable> route;
     private double speed;
@@ -26,18 +26,32 @@ public class Car implements Drawable {
     private String name;
     private BufferedImage img = null;
 
-    double[] values = {4.7, 9.0, 3.5, 7.6, 10.0, 1.5, 2.8, 5.5, 6.0, 8.8};
-    private final Random random = new Random();
+    //double[] values = {4.7, 9.0, 3.5, 7.6, 10.0, 1.5, 2.8, 5.5, 6.0, 8.8};
+    //private final Random random = new Random();
+    
+    ArrayDeque<Drawable> path;
 
     public Car(ArrayDeque<Drawable> path, String name) {
-        route = path;
+        this.path = path;
         this.name = name;
 
+        x = ((Checkpoint)path.peek()).getXValue();
+        y = ((Checkpoint)path.pop()).getYValue();
+        getNextCheckpoint();
         try {
 
             img = ImageIO.read(new File("carclipart.png"));
         } catch(Exception e) {
             System.out.println("Image icon not found");
+        }
+
+        Iterator<Drawable> routeIterator = route.iterator();
+        if (routeIterator.hasNext()) {
+            Object routeObj = new Object();
+            routeObj = routeIterator.hasNext();
+            for (int i = 0; i <= route.size(); i++) {
+                //path = routeObj;
+            }
         }
     }
 
@@ -50,9 +64,13 @@ public class Car implements Drawable {
         }
     } */
 
-    public boolean move(Checkpoint checkPoint) {
-        int newX = checkPoint.getXValue();
-        int newY = checkPoint.getYValue();
+    public void getNextCheckpoint(){
+    	newX = ((Checkpoint)path.peek()).getXValue();
+        newY = ((Checkpoint)path.pop()).getYValue();
+    }
+    public boolean move() {
+        
+    	System.out.println("x"+x+"y"+y);
         boolean isNegative = false;
 
         if ((newX - x) < 0) isNegative = true;
@@ -63,7 +81,7 @@ public class Car implements Drawable {
         if (x == newX && y == newY) {
             return false;
         } else if (x != newX || y != newY) {
-            slope = ((newY - y) / newX - x);
+            slope = ((newY - y) / (newX - x));
             yIntercept = newY - (slope * newX);
             if (isNegative) x -= velocity;
             else x += velocity;
@@ -106,21 +124,18 @@ public class Car implements Drawable {
     }
 
 
-    public void setPath(String p) {
+    /*public void setPath() {
         p = path;
-        /*
-        route[] = route.toArray();
-        Iterator<Drawable> routeIterator = route.iterator();
-        for (int i = 0; i <= route.size(); i++) {
-            route.toArray();
-            path = route[i];
-        }*/
-    }
+        //Iterator<Drawable> routeIterator = route.iterator();
+        //for (int i = 0; i <= route.size(); i++) {
+          //  path = route[i];
+        //}
+    }*/
 
 
-    public String getPath() {
-        return path;
-    }
+    //public String getPath() {
+      //  return path;
+    //}
 
     public void setEngine(double e) {
         e = engine;
@@ -158,15 +173,13 @@ public class Car implements Drawable {
     }
 
     public String toString() {
-    String view = name;
-    if(name.length() < 6){ for(int i = 0; i <=  6 - name.length(); i++) view +="  "; }
-    return view+"          " + speed + "          " + distance;
+        return name + " " + speed + " " + distance;
     }
 
 
     @Override
     public void draw(Graphics2D g2) {
         g2.setColor(color);
-        g2.drawImage(img, x, y, null);
+        g2.drawImage(img, null, x, y);
     }
 }
