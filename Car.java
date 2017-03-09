@@ -30,7 +30,7 @@ public class Car implements Drawable {
     private final Random random = new Random();
 
     public Car(ArrayDeque<Drawable> route, String name) {
-        setPath(path);
+        this.route = route;
         this.name = name;
 
         try {
@@ -108,10 +108,13 @@ public class Car implements Drawable {
 
     public void setPath(String p) {
         p = path;
-        //Iterator<Drawable> routeIterator = route.iterator();
-        //for (int i = 0; i <= route.size(); i++) {
-          //  path = route[i];
-        //}
+        /*
+        route[] = route.toArray();
+        Iterator<Drawable> routeIterator = route.iterator();
+        for (int i = 0; i <= route.size(); i++) {
+            route.toArray();
+            path = route[i];
+        }*/
     }
 
 
