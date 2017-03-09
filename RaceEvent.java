@@ -19,34 +19,18 @@ public class RaceEvent
     public void innitialize(String usrName, Integer numOpp)
     {
         track = new RaceTrack();
-        Car userCar = new Car(track.getRoute(1), usrName);
+        Car userCar = new Car(track.getRoute(1 + new Random().nextInt(3)), usrName);
         contestants = new ArrayList<Car>();
         contestants.add(userCar);
         for(int i = 2; i <= numOpp; i++)
         {
-            contestants.add(new Car(track.getRoute(3), "Racer "+i));
+            contestants.add(new Car(track.getRoute(1 + new Random().nextInt(3)), "Racer "+i));
         }
     }
 
     public boolean race()
     {
         return false;
-    }
-
-    public String generatePath()
-    {
-        String path = "";
-        ArrayList<String> allChecks = new ArrayList<String>();
-        allChecks.add("A");
-        allChecks.add("B");
-        allChecks.add("C");
-        allChecks.add("D");
-        while(allChecks.size() != 0)
-        {
-            int index = (new Random()).nextInt(allChecks.size());
-            path += allChecks.remove(index);
-        }
-        return path;
     }
 
     public String getContestants()
