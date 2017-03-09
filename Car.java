@@ -158,7 +158,9 @@ public class Car implements Drawable {
     }
 
     public String toString() {
-        return name + " " + speed + " " + distance;
+    String view = name;
+    if(name.length() < 6){ for(int i = 0; i <=  6 - name.length(); i++) view +="  "; }
+    return view+"          " + speed + "          " + distance;
     }
 
 
