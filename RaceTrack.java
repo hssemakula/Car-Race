@@ -99,7 +99,7 @@ public class RaceTrack implements Drawable{
         return totalDistance;
     }
 
-    //This method produces a null value sometimes, I'm thinking there might be a problem with the method that makes the routes
+    //This method produces a null value sometimes, I'm thinking there might be a problem with the method that makes the routes, try choosing 5, 6, 7 cars you will see
     //And also because it returns ArrayDeque<Drawable> objects when forexample car1 gets rt1 and by chance car2 also gets rt1, rt1 will
     //only have 3 checkpoints because car1 already popped it. I can change the raceEvent so that the cars get routes in order but still
     //there are only 4 routes so that would reuire atlest 0 routes...because the user can choose 10 calls. Your call.	
