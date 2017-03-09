@@ -14,7 +14,7 @@ public class Car implements Drawable {
     private int x;
     private int y;
     private int newX, newY;
-    private Queue<String> pathQueue;
+    private String pathString;
     private ArrayDeque<Drawable> route;
     private double speed;
     private double distance;
@@ -34,6 +34,7 @@ public class Car implements Drawable {
     public Car(ArrayDeque<Drawable> path, String name) {
         this.path = path;
         this.name = name;
+        setpathString(path)
 
         x = ((Checkpoint)path.peek()).getXValue();
         y = ((Checkpoint)path.pop()).getYValue();
@@ -43,15 +44,6 @@ public class Car implements Drawable {
             img = ImageIO.read(new File("carclipart.png"));
         } catch(Exception e) {
             System.out.println("Image icon not found");
-        }
-
-        Iterator<Drawable> routeIterator = route.iterator();
-        if (routeIterator.hasNext()) {
-            Object routeObj = new Object();
-            routeObj = routeIterator.hasNext();
-            for (int i = 0; i <= route.size(); i++) {
-                //path = routeObj;
-            }
         }
     }
 
@@ -124,18 +116,20 @@ public class Car implements Drawable {
     }
 
 
-    /*public void setPath() {
-        p = path;
-        //Iterator<Drawable> routeIterator = route.iterator();
-        //for (int i = 0; i <= route.size(); i++) {
-          //  path = route[i];
-        //}
-    }*/
+    public void setpathString(ArrayDeque<Drawable> path) 
+    {
+      pathString = "";
+      for(Drawable d: path)
+      {
+        Checkpoint checkpoint = (Checkpoint)d;
+        pathString += checkpoint.getID()+"";
+      }
+    }
 
 
-    //public String getPath() {
-      //  return path;
-    //}
+    public String getPath() {
+        return pathString;
+    }
 
     public void setEngine(double e) {
         e = engine;
