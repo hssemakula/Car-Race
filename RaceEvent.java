@@ -34,10 +34,11 @@ public class RaceEvent
 
     public String getContestants()
     {
-        String view = "Racer          Speed          Distance          Path\n----------------------------------------------------------\n";
+        String view = "Racer          Speed          Distance       Path\n-------------------------------------------------------\n";
         for(Car c: contestants) view += c.toString() + "\n";
         return view;
     }
+
 
     public String getWinner(){ return""; }
 
