@@ -117,7 +117,7 @@ public class MainPanel extends JPanel implements ActionListener
     JPanel holderPanel2 = new JPanel();
     holderPanel2.setPreferredSize(new Dimension(1000,30));
     holderPanel2.setBackground(new Color(95,158,160));
-    holderPanel2.add(new JLabel("Copyright Â© Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
+    holderPanel2.add(new JLabel("Copyright © Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
     add(holderPanel2, BorderLayout.SOUTH);
   }
   
