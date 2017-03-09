@@ -174,7 +174,7 @@ public class Car implements Drawable {
         else if(name.length() == 4) padding +="      ";
         else if(name.length() == 5) padding +="   ";
         else if(name.length() == 6) padding +=" ";
-        return name +padding + "          " + speed + "               " + distance+"      "+pathString;
+        return name +padding + "          " + speed + "               " + distance+"                    "+pathString;
     }
 
 
