@@ -53,7 +53,7 @@ public class MainPanel extends JPanel implements ActionListener
   
   public MainPanel()
   {
-    this.setPreferredSize(new Dimension(1020, 500));
+    this.setPreferredSize(new Dimension(1090, 500));
     innitialize(); //method innitializes all instance varibles
   }
   
@@ -106,7 +106,7 @@ public class MainPanel extends JPanel implements ActionListener
     setUpInfoPanel();
     add(infoPanel, BorderLayout.WEST);
     scorePanel = new JPanel();
-    scorePanel.setPreferredSize(new Dimension(280,430));
+    scorePanel.setPreferredSize(new Dimension(290,430));
     scorePanel.setBackground(new Color(70,130,180));
     setUpScorePanel();
     add(scorePanel, BorderLayout.EAST);
@@ -143,11 +143,11 @@ public class MainPanel extends JPanel implements ActionListener
   public void setUpScorePanel()
   {
     JPanel holderPanel1 = new JPanel();
-    holderPanel1.setPreferredSize(new Dimension(280, 30));
+    holderPanel1.setPreferredSize(new Dimension(290, 30));
     holderPanel1.setBackground(Color.black);
     scorePanel.add(holderPanel1);
     JPanel holderPanel2 = new JPanel();
-    holderPanel2.setPreferredSize(new Dimension(280, 300));
+    holderPanel2.setPreferredSize(new Dimension(290, 300));
     holderPanel2.setBackground(Color.white);
     scorePanel.add(holderPanel2);
     scoreBoard = new JTextArea("", 10,23);
