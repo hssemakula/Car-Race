@@ -18,12 +18,12 @@ public class RaceEvent
     public void innitialize(String usrName, Integer numOpp)
     {
         track = new RaceTrack();
-        Car userCar = new Car(track.getRoute(1 + new Random().nextInt(3)), usrName);
+        Car userCar = new Car(track.getRoute(1 + (new Random().nextInt(4))), usrName);
         contestants = new ArrayList<Car>();
         contestants.add(userCar);
         for(int i = 2; i <= numOpp; i++)
         {
-            contestants.add(new Car(track.getRoute(1 + new Random().nextInt(3)), "Racer "+i));
+            contestants.add(new Car(track.getRoute(1 + (new Random().nextInt(4))), "Racer "+i));
         }
     }
 
@@ -34,7 +34,7 @@ public class RaceEvent
 
     public String getContestants()
     {
-        String view = "Racer          Speed          Distance\n-------------------------------------------\n";
+        String view = "Racer          Speed          Distance          Path\n----------------------------------------------------------\n";
         for(Car c: contestants) view += c.toString() + "\n";
         return view;
     }
