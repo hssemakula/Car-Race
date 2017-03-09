@@ -29,7 +29,12 @@ public class RaceEvent
 
     public boolean race()
     {
-        return false;
+      int moveCount = 0;
+      for(Car c: contestants) 
+      {
+        if(c.move()) moveCount++;
+      }  
+        return moveCount > 0;
     }
 
     public String getContestants()
