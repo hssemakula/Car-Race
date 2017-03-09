@@ -53,7 +53,7 @@ public class MainPanel extends JPanel implements ActionListener
 
     public MainPanel()
     {
-        setPreferredSize(new Dimension(1000, 500));
+        this.setPreferredSize(new Dimension(1000, 500));
         innitialize(); //method innitializes all instance varibles
     }
 
@@ -303,6 +303,7 @@ public class MainPanel extends JPanel implements ActionListener
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     MainPanel p = new MainPanel();
     window.pack();
+    window.setResizable(false);
     window.setVisible(true);
   }
 
