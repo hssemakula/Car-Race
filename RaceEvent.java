@@ -9,7 +9,6 @@ public class RaceEvent
 {
     private ArrayList<Car> contestants;
     private RaceTrack track;
-    //private RaceTrack track;
 
     public RaceEvent(String usrName, Integer numOpp)
     {
