@@ -53,7 +53,7 @@ public class MainPanel extends JPanel implements ActionListener
   
   public MainPanel()
   {
-    this.setPreferredSize(new Dimension(1000, 500));
+    this.setPreferredSize(new Dimension(1020, 500));
     innitialize(); //method innitializes all instance varibles
   }
   
@@ -106,7 +106,7 @@ public class MainPanel extends JPanel implements ActionListener
     setUpInfoPanel();
     add(infoPanel, BorderLayout.WEST);
     scorePanel = new JPanel();
-    scorePanel.setPreferredSize(new Dimension(200,430));
+    scorePanel.setPreferredSize(new Dimension(280,430));
     scorePanel.setBackground(new Color(70,130,180));
     setUpScorePanel();
     add(scorePanel, BorderLayout.EAST);
@@ -117,7 +117,7 @@ public class MainPanel extends JPanel implements ActionListener
     JPanel holderPanel2 = new JPanel();
     holderPanel2.setPreferredSize(new Dimension(1000,30));
     holderPanel2.setBackground(new Color(95,158,160));
-    holderPanel2.add(new JLabel("Copyright © Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
+    holderPanel2.add(new JLabel("Copyright Â© Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
     add(holderPanel2, BorderLayout.SOUTH);
   }
   
@@ -143,14 +143,14 @@ public class MainPanel extends JPanel implements ActionListener
   public void setUpScorePanel()
   {
     JPanel holderPanel1 = new JPanel();
-    holderPanel1.setPreferredSize(new Dimension(200, 30));
+    holderPanel1.setPreferredSize(new Dimension(280, 30));
     holderPanel1.setBackground(Color.black);
     scorePanel.add(holderPanel1);
     JPanel holderPanel2 = new JPanel();
-    holderPanel2.setPreferredSize(new Dimension(200, 300));
+    holderPanel2.setPreferredSize(new Dimension(280, 300));
     holderPanel2.setBackground(Color.white);
     scorePanel.add(holderPanel2);
-    scoreBoard = new JTextArea("", 10,17);
+    scoreBoard = new JTextArea("", 10,23);
     holderPanel2.add(scoreBoard);
     scoreBoard.setEditable(false);
     scoreBoard.setFont(new Font("dialog", Font.BOLD, 12));
@@ -257,7 +257,7 @@ public class MainPanel extends JPanel implements ActionListener
     {
       window.remove(starterPanel2);
       window.getContentPane().add(this);
-      window.setSize(1020, 540);
+      window.setSize(1100, 540);
       window.validate();
       window.repaint();
       timer2.start();
@@ -294,8 +294,8 @@ public class MainPanel extends JPanel implements ActionListener
         repaint();
       }
       else{
-    	  isOver = true;
-    	  timer.stop();
+       isOver = true;
+       timer.stop();
       }
     }
     if(e.getSource() == reset)
