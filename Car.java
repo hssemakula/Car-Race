@@ -34,7 +34,7 @@ public class Car implements Drawable {
     public Car(ArrayDeque<Drawable> path, String name) {
         this.path = path;
         this.name = name;
-        setpathString(path)
+        setPathString(path)
 
         x = ((Checkpoint)path.peek()).getXValue();
         y = ((Checkpoint)path.pop()).getYValue();
@@ -116,7 +116,7 @@ public class Car implements Drawable {
     }
 
 
-    public void setpathString(ArrayDeque<Drawable> path) 
+    public void setPathString(ArrayDeque<Drawable> path) 
     {
       pathString = "";
       for(Drawable d: path)
