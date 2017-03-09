@@ -51,7 +51,7 @@ public class RaceEvent
 
     public String getContestants()
     {
-        String view = "";
+        String view = "Racer          Speed          Distance\n-------------------------------------------\n";
         for(Car c: contestants) view += c.toString() + "\n";
         return view;
     }
