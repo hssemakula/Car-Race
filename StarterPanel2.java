@@ -25,6 +25,7 @@ public class StarterPanel2 extends JPanel
    */ 
   public void innitialize(JButton start, JButton reenter, Integer participants, String color, String name)
   {
+    removeAll();
     setBackground(new Color(95,158,160));
     JPanel[] holderPanels = new JPanel[2]; //'holder panels' used to structure objects on panel.
     for(int i = 0; i < holderPanels.length; i++)
