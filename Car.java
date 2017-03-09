@@ -167,7 +167,14 @@ public class Car implements Drawable {
     }
 
     public String toString() {
-        return name + "          " + speed + "          " + distance+"          "+pathString;
+        String padding = "";
+             if(name.length() == 1) padding +="           ";
+        else if(name.length() == 2) padding +="          ";
+        else if(name.length() == 3) padding +="         ";
+        else if(name.length() == 4) padding +="      ";
+        else if(name.length() == 5) padding +="   ";
+        else if(name.length() == 6) padding +=" ";
+        return name +padding + "          " + speed + "               " + distance+"      "+pathString;
     }
 
 
