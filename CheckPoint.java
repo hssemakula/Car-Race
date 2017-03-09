@@ -18,8 +18,8 @@ public class Checkpoint implements Drawable{
         this.iD = iD;
         passed = false;
 
-        xValue = (int)(Math.random()*20) * 50;
-        yValue = (int)(Math.random()*14) * 43;
+        xValue = (int)(Math.random()* 550) + 200;
+        yValue = (int)(Math.random()* 330) + 70;
 
         try{
             icon = ImageIO.read(new File("iconCheckpoint.png"));
@@ -32,7 +32,7 @@ public class Checkpoint implements Drawable{
     public void draw(Graphics2D g2){
 
         g2.drawImage(icon, null, xValue, yValue);
-        g2.drawString(iD + "", xValue + 84, yValue + 84);
+        g2.drawString(iD + "", xValue + 22, yValue + 35);
     }
 
     public int getXValue(){
