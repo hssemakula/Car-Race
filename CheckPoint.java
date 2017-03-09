@@ -1,28 +1,57 @@
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-/**
- * Created by sarah on 3/6/17.
- */
+public class Checkpoint implements Drawable{
 
-    public class CheckPoint implements Drawable {
+    private int xValue, yValue;
+    private char iD;
+    private boolean passed;
+    private BufferedImage icon = null;
 
-        int x;
-        int y;
+    public Checkpoint(char iD){
 
-        public CheckPoint(int x, int y) {
-            this.x = x;
-            this.y = y;
+        this.iD = iD;
+        passed = false;
+
+        xValue = (int)(Math.random()*20) * 50;
+        yValue = (int)(Math.random()*14) * 43;
+
+        try{
+            icon = ImageIO.read(new File("iconCheckpoint.png"));
         }
-
-        public void draw(Graphics g)
-        {
-            g.setColor(Color.yellow);
-            g.fillOval(x-7,y-7,7,7);
-            g.setColor(Color.black);
-
+        catch(Exception e){
+            System.out.println("Image icon not found");
         }
-
-        public int getX(){ return x; }
-        public int getY(){ return y; }
     }
+
+    public void draw(Graphics2D g2){
+
+        g2.drawImage(icon, null, xValue, yValue);
+        g2.drawString(iD + "", xValue + 84, yValue + 84);
+    }
+
+    public int getXValue(){
+        return xValue;
+    }
+
+    public int getYValue(){
+        return yValue;
+    }
+
+    public char getID(){
+        return iD;
+    }
+
+    public boolean isPassed(){
+        return passed;
+    }
+
+    public void checkpointPassed(){
+        passed = true;
+    }
+}
