@@ -60,7 +60,13 @@ public class Car implements Drawable {
     	newX = ((Checkpoint)path.peek()).getXValue();
         newY = ((Checkpoint)path.pop()).getYValue();
     }
-    public boolean move() {
+    
+    /* Look at the distance as a varable that starts out as 0. and every time you move a little bit you add to that distance variable
+     * forexample if I start at (0,0), my distance is 0. when I move to (-9, 3). I'll get my old x and y and new x and y, use then to calculate
+     * the actual distance i moved like so d = d + Math.sqrt((Oldx-newx)^2 + (Oldy-newy)^2); this the distance formula(pseudo code) of calculus
+     * This is done every time you find a new x and y.
+     */
+     public boolean move() {
         
     	System.out.println("x"+x+"y"+y);
         boolean isNegative = false;
