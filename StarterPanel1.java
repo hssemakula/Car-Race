@@ -42,6 +42,7 @@ public class StarterPanel1 extends JPanel
    */ 
   public void innitialize(JButton join, JButton cancel)
   {
+    removeAll();
     setBackground(new Color(95,158,160));
     choices = new String[]{"Black", "Blue","Cyan","Gray","Green","Magenta","Orange",
       "Pink","Red","White", "Yellow"};
