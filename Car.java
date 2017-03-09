@@ -72,7 +72,8 @@ public class Car implements Drawable {
         boolean isNegative = false;
 
         if ((newX - x) < 0) isNegative = true;
-        int velocity = (int)(Math.random() * 5);
+        int velocity = (int)(Math.random() * 5); //This increment is not velocity, because velocity is speed with direction, yet this 
+                                                 //changes the actual x coordinate of the car, it is more like displacement.
         double slope;
         double yIntercept;
 
@@ -90,7 +91,8 @@ public class Car implements Drawable {
             x = newX;
             return true;
         }
-        return false;
+        return false; //This method ONLY AND ONLY returns false when the new x and new y are equal to the final x and final y so 
+                      //this false should have a condition.
     }
 
     public void setTime(long t, long s) {
