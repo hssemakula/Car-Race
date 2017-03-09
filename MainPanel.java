@@ -110,7 +110,7 @@ public class MainPanel extends JPanel implements ActionListener
     scorePanel.setBackground(new Color(70,130,180));
     setUpScorePanel();
     add(scorePanel, BorderLayout.EAST);
-    timer = new Timer(200, this);
+    timer = new Timer(50, this);
     timer2 = new Timer(700, this);
     
     
@@ -293,7 +293,10 @@ public class MainPanel extends JPanel implements ActionListener
         scoreBoard.setText(event.getContestants());
         repaint();
       }
-      else isOver = true;
+      else{
+    	  isOver = true;
+    	  timer.stop();
+      }
     }
     if(e.getSource() == reset)
     {
