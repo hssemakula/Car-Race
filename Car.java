@@ -46,6 +46,7 @@ public class Car implements Drawable {
             System.out.println("Image icon not found");
         }
         //you might need an innitial value of time here. To get time when car starts moving....ie this is your start time. 
+        //something like startTime = System.currentTimeMillis();
     }
 
     /*
@@ -96,7 +97,7 @@ public class Car implements Drawable {
                       //this false should have a condition.
     }
 
-   //This method will give you false time because you choose what time to start and stop. however it can be used as a "helper method
+   //This method will give you false time because you choose what time to start and stop. however it can be used as a "helper method"
     //for the one below
     public void setTime(long t, long s) {
         s = start;
@@ -107,6 +108,8 @@ public class Car implements Drawable {
 
     //At any time the time since this car started moving is System.currentTimeMillis() - start; which is what you have above
     //but your start variable should be innitialized in the constructor i.e when the car "REALY" starts moving.
+    //so if you call the above method with in this method like settime(System.currentTimeMillis(), start(one innitialized in constructor))
+    //it should produce the right time, any time.  .....This method should also be called when the car reaches it's final checkpoint
     public long getTime() {
         return time;
     }
