@@ -108,6 +108,8 @@ public class Car implements Drawable {
 
     /* So this method should take in the old coordinates and the ones just calculated and using that formular that you have
      * in the else if  it should then calcualte a certain value and should add it to the current value of distance.
+     * so in the move method, the first thing you need to store are original values of x and y. then EXACTLY after you 
+     * calculate the new x and y before the return, call this method with the four coordinates. this will be very efficiaent I promise.
      */
     public void setDistance(double d, Checkpoint checkpoint) {
         int x2 = checkpoint.getXValue();
