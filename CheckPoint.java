@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- * Created by sarah on 3/6/17.
+ * Created by sarah on 3/6/17. wasn't this supposed to be Rodrigo
  */
 
     public class CheckPoint implements Drawable {
