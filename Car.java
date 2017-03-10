@@ -39,6 +39,17 @@ public class Car implements Drawable {
 
         try {
             img = ImageIO.read(new File("carclipart.png"));
+            Color carColor = new Color((int)(Math.random() * 25.6)*10, (int)(Math.random() * 25.6)*10, (int)(Math.random() * 25.6)*10);
+            for(int i = 10; i <= 20; i++){
+            	for(int j = 5; j <= 13; j++){
+            		img.setRGB(i, j, carColor.getRGB());
+            	}
+            }
+            for(int i = 30; i <= 36; i++){
+            	for(int j = 7; j <= 11; j++){
+            		img.setRGB(i, j, carColor.getRGB());
+            	}
+            }
         } catch(Exception e) {
             System.out.println("Image icon not found");
         }
