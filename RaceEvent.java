@@ -9,6 +9,8 @@ public class RaceEvent
 {
     private ArrayList<Car> contestants;
     private RaceTrack track;
+    private long timeStart;
+    private double[] speeds;
 
     public RaceEvent(String usrName, Integer numOpp, Color usrColor)
     {
@@ -32,9 +34,26 @@ public class RaceEvent
       int moveCount = 0;
       for(Car c: contestants) 
       {
-        if(c.move()) moveCount++;
+        if(c.move()) {
+        	moveCount++;
+        	c.setTime(timeStart);
+        }
       }  
         return moveCount > 0;
+    }
+    
+    public double[] calculateSpeeds(){
+    	
+    	speeds = new double[contestants.size()];
+    	int i = 0;
+    	for(Car c: contestants){
+    		
+    		c.setSpeed();
+    		speeds[i] = c.getSpeed();
+    		System.out.println(c.getName() + ": " + c.getSpeed() + "");
+    		i++;
+    	}
+    	return speeds;
     }
 
     public String getContestants()
@@ -44,11 +63,31 @@ public class RaceEvent
         return view;
     }
 
-    public String getWinner(){ return""; }
+    public Car getWinner(){ 
+    	
+    	double[] aux = calculateSpeeds();
+    	
+    	double max = aux[0];
+    	int indexMax = 0;
+    	
+    	for(int i = 1; i < aux.length; i++){
+    		if(aux[i] > max){
+    			max = aux[i];
+    			indexMax = i;
+    		}
+    	}
+    	return contestants.get(indexMax); 
+    	
+    }
 
     public void draw(Graphics2D g2)
     {
         track.draw(g2);
         for(Car c: contestants) c.draw(g2);
+    }
+    
+    public void setStartTime(long start){
+    	
+    	timeStart = start;
     }
 }
