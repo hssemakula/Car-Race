@@ -56,12 +56,22 @@ public class RaceEvent
      return speeds;
     }
 
-    public String getContestants()
+  public String getContestants()
+  {
+    String view = "Racer          Speed          Distance          Path\n-------------------------------------------------------------\n";
+    ArrayList<Car> newArrayList = new ArrayList<Car>();
+    //cars are sorted by speed
+    while(contestants.size() > 0)
     {
-        String view = "Racer          Speed          Distance          Path\n-------------------------------------------------------------\n";
-        for(Car c: contestants) view += c.toString() + "\n";
-        return view;
+      Car maxSpeedCar = contestants.get(0);
+      int index = 0;
+      for(int i = 0; i < contestants.size(); i++)
+      {
+        if(maxSpeedCar.getSpeed() < contestants.get(i).getSpeed()) index = i;
+      }
+      newArrayList.add(contestants.remove(index));
     }
+    
 
     public Car getWinner(){ 
      
