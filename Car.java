@@ -210,7 +210,8 @@ public class Car implements Drawable {
   }
   
   public double getSpeed() {
-    return speed;
+    //if(speed == Double.POSTIVE_INFINITY) return 0;
+    else return speed;
   }
   
   public String getSpeedString() {
