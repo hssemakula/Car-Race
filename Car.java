@@ -29,10 +29,10 @@ public class Car implements Drawable {
 
     ArrayDeque<Drawable> path;
 
-    public Car(ArrayDeque<Drawable> path, String name, boolean user) {
+    public Car(ArrayDeque<Drawable> path, String name, boolean user, Color usrColor) {
         this.path = path;
         this.name = name;
-	this.user = user;
+ this.user = user;
         setPathString(path);
 
         x = ((Checkpoint)path.peek()).getXValue();
@@ -43,19 +43,28 @@ public class Car implements Drawable {
             img = ImageIO.read(new File("carclipart.png"));
             Color carColor = new Color((int)(Math.random() * 25.6)*10, (int)(Math.random() * 25.6)*10, (int)(Math.random() * 25)*10);
             if(user){
-            	//Hillary this is up to you
+              for(int i = 10; i <= 20; i++){
+              for(int j = 5; j <= 13; j++){
+               img.setRGB(i, j, usrColor.getRGB());
+              }
+             }
+             for(int i = 30; i <= 36; i++){
+              for(int j = 7; j <= 11; j++){
+               img.setRGB(i, j, usrColor.getRGB());
+              }
+             }
             }
             else{
-	            for(int i = 10; i <= 20; i++){
-	            	for(int j = 5; j <= 13; j++){
-	            		img.setRGB(i, j, carColor.getRGB());
-	            	}
-	            }
-	            for(int i = 30; i <= 36; i++){
-	            	for(int j = 7; j <= 11; j++){
-	            		img.setRGB(i, j, carColor.getRGB());
-	            	}
-	            }
+             for(int i = 10; i <= 20; i++){
+              for(int j = 5; j <= 13; j++){
+               img.setRGB(i, j, carColor.getRGB());
+              }
+             }
+             for(int i = 30; i <= 36; i++){
+              for(int j = 7; j <= 11; j++){
+               img.setRGB(i, j, carColor.getRGB());
+              }
+             }
             }
         } catch(Exception e) {
             System.out.println("Image icon not found");
