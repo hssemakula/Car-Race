@@ -300,6 +300,7 @@ public class MainPanel extends JPanel implements ActionListener
     	System.out.println("Winner is: " + event.getWinner().getName());
         isOver = true;
         timer.stop();
+        repaint();
       }
     }
     if(e.getSource() == reset)
