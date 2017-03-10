@@ -105,19 +105,22 @@ public class Car implements Drawable {
             
             try{
              slope = ((((double)newY - y) / ((double)newX - x)));
+             yIntercept = newY - (slope * newX);
+             
+             if (isNegative) x -= displacement;
+             
+             else x += displacement;
+             
+             y = (int) ((slope * x) + yIntercept);
+             
             }
             catch(Exception e){
-             slope = ((((double)newY - y) / 0.00000001));//This is in case flags are in the same vertical line which can happen
+            	if ((newY - y) < 0) 
+                     y -= displacement;
+                
+                else y += displacement;//This is in case flags are in the same vertical line which can happen
                                                             //Both x-coordinates would be the same, thus diving by 0 would be an error
             }
-            
-            yIntercept = newY - (slope * newX);
-            
-            if (isNegative) x -= displacement;
-            
-            else x += displacement;
-            
-            y = (int) ((slope * x) + yIntercept);
             updateDistance(x, x1, y, y1);
             return true;
         } else if (Math.abs(x - newX) < 1 || Math.abs(y - newY) < 1) {
