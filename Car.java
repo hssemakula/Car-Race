@@ -34,7 +34,7 @@ public class Car implements Drawable {
         setPathString(path);
 
         x = ((Checkpoint)path.peek()).getXValue();
-        y = ((Checkpoint)path.pop()).getYValue();
+        y = ((Checkpoint)path.pop()).getYValue() + 67;
         getNextCheckpoint();
 
         try {
@@ -48,48 +48,62 @@ public class Car implements Drawable {
 
     public void getNextCheckpoint(){
         newX = ((Checkpoint)path.peek()).getXValue();
-        newY = ((Checkpoint)path.pop()).getYValue();
+        newY = ((Checkpoint)path.pop()).getYValue() + 67;
     }
 
-    public boolean move(Checkpoint checkpoint) {
+    public boolean move(){//(Checkpoint checkpoint) {
 
-        int x1 = this.x;
-        int y1 = this.y;
-        int x2 = checkpoint.getXValue();
-        int y2 = checkpoint.getYValue();
+        //int x1 = this.x;
+        //int y1 = this.y;
+        //int x2 = checkpoint.getXValue();
+        //int y2 = checkpoint.getYValue();
 
-        System.out.println("x"+x+"y"+y);
         boolean isNegative = false;
 
-        if ((newX - x) < 0) isNegative = true;
+        if ((newX - x) < 0) 
+            isNegative = true;
+        
         int displacement = (int) (Math.random() * 5);
         double slope;
         double yIntercept;
-        double totalMove;
+        double totalMove = 0;
 
         if (x == newX && y == newY) {
             return false;
+            
         } else if (x != newX || y != newY) {
-            slope = ((newY - y) / (newX - x));
+            
+            try{
+            	slope = ((((double)newY - y) / ((double)newX - x)));
+            }
+            catch(Exception e){
+            	slope = ((((double)newY - y) / 0.00000001));//This is in case flags are in the same vertical line which can happen
+                                                            //Both x-coordinates would be the same, thus diving by 0 would be an error
+            }
+            
             yIntercept = newY - (slope * newX);
+            
             if (isNegative) x -= displacement;
+            
             else x += displacement;
+            
             y = (int) ((slope * x) + yIntercept);
-            totalMove = totalMove + Math.sqrt((x1 - x2)^2 + (x2-y2)^2);
+            totalMove = totalMove + Math.sqrt((x - newX) ^ 2 + (y - newY) ^ 2);
 
             return true;
         } else if (Math.abs(x - newX) < 1 || Math.abs(y - newY) < 1) {
             y = newY;
             x = newX;
-            totalMove = totalMove + Math.sqrt((x1 - x2) ^ 2 + (x2 - y2) ^ 2);
+            totalMove = totalMove + Math.sqrt((x - newX) ^ 2 + (y - newY) ^ 2);
 
             return true;
         }
-        if ((newX == (Checkpoint)path.getLast()) && (newY == (Checkpoint)path.getLast())) {
-            getTime();
-            return false; //This method ONLY returns false when the new x and new y are equal to the final x and final y so
+        //if ((newX == (Checkpoint)path.getLast()) && (newY == (Checkpoint)path.getLast())) {
+          //  getTime();
+            //return false; //This method ONLY returns false when the new x and new y are equal to the final x and final y so
             //this false should have a condition.
-        }
+        //}
+        return false;
     }
 
     //This method will give you false time because you choose what time to start and stop. however it can be used as a "helper method"
@@ -127,7 +141,7 @@ public class Car implements Drawable {
             distance = 0.0;
         } else if (x != x2 || y != y2) {
             distance = Math.sqrt((y2 - y) ^ 2 + (x2 - x) ^ 2);
-            distance = distance + newVal;
+            distance += distance;
         }
     }
 
