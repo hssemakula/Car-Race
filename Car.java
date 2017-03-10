@@ -16,8 +16,7 @@ public class Car implements Drawable {
   private int newX, newY;
   private String pathString;
   private ArrayDeque<Drawable> route;
-  private double averageSpeed;
-  private double currentSpeed; //Instantaneous speed NOT TO BE CONFUSED with AVERAGE SPEED.
+  private double speed;
   private double distance;
   private long start;
   private long time;
@@ -71,8 +70,6 @@ public class Car implements Drawable {
       System.out.println("Image icon not found");
     }
     
-    long startTime = System.currentTimeMillis();
-    currentSpeed = 0.0;
   }
   
   public void getNextCheckpoint(){
@@ -118,23 +115,25 @@ public class Car implements Drawable {
         else x += displacement;
         
         y = (int) ((slope * x) + yIntercept);
-        
+        updateDistance(x, x1, y, y1);
       }
       catch(Exception e)
       {
-        if ((newY - y) < 0){ 
+        if ((newY - y) < 0)
+        { 
           y -= displacement;
           updateDistance(x, x1, y, y1);
         }
-        else{
+        else
+        {
           y += displacement;//This is in case flags are in the same vertical line which can happen
           //Both x-coordinates would be the same, thus diving by 0 would be an error
           updateDistance(x, x1, y, y1);
         }
       }
-      updateDistance(x, x1, y, y1);
       return true;
-    } else if (Math.abs(x - newX) < 1 || Math.abs(y - newY) < 1) {
+    } 
+    else if (Math.abs(x - newX) < 1 || Math.abs(y - newY) < 1) {
       y = newY;
       x = newX;
       updateDistance(x, x1, y, y1);
@@ -165,7 +164,8 @@ public class Car implements Drawable {
   {
     double displacement = Math.sqrt(Math.pow((double)(x2 - x1),2) + Math.pow((double)(y2 - y1),2));
     distance += displacement;
-    currentSpeed = displacement;
+    setTime(start);
+    setSpeed();
   }
   
   public String getDistance() {
@@ -205,20 +205,16 @@ public class Car implements Drawable {
     return tire;
   }
   
-  public void setAverageSpeed() {
-    averageSpeed = distance/(double)(time/1000);
+  public void setSpeed() {
+    speed = distance/(double)(time/1000);
   }
   
-  public double getAverageSpeed() {
-    return averageSpeed;
+  public double getSpeed() {
+    return speed;
   }
   
-  public String getAverageSpeedString() {
-    return String.format("%10.2f", averageSpeed);
-  }
-  
-    public String getCurrentSpeedString() {
-    return String.format("%10.2f", currentSpeed);
+  public String getSpeedString() {
+    return String.format("%10.3f", speed);
   }
   
   public String getName() {
@@ -233,8 +229,7 @@ public class Car implements Drawable {
     else if(name.length() == 4) padding +="      ";
     else if(name.length() == 5) padding +="   ";
     else if(name.length() == 6) padding +=" ";
-    if(path.isEmpty()) return name +padding + "          " + getAverageSpeedString() + "               " + getDistance()+"                    "+pathString;
-    else return name +padding + "          " + getCurrentSpeedString()+ "               " + getDistance()+"                    "+pathString;
+    return name +padding + "          " + getSpeedString() + "               " + getDistance()+"                    "+pathString;
   }
   
   @Override
