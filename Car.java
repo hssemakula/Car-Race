@@ -159,11 +159,11 @@ public class Car implements Drawable {
      */
     public void updateDistance(int x1, int x2, int y1, int y2) 
     {
-      distance += Math.sqrt(((x2 - x1) ^ 2) + ((y2 - y1) ^ 2));
+      distance += Math.sqrt(Math.pow((double)(x2 - x1),2) + Math.pow((double)(y2 - y1),2));
     }
 
     public String getDistance() {
-        return String.format("%4.2g",distance);
+        return String.format("%6.2g",distance);
     }
 
 
