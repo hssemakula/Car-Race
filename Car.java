@@ -146,8 +146,8 @@ public class Car implements Drawable {
       distance += Math.sqrt(((x2 - x1) ^ 2) + ((y2 - y1) ^ 2));
     }
 
-    public double getDistance() {
-        return distance;
+    public String getDistance() {
+        return String.format("%4.2g",distance);
     }
 
 
