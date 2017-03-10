@@ -285,6 +285,7 @@ public class MainPanel extends JPanel implements ActionListener
         event = new RaceEvent(usrName, numOpp, usrColor);
         scoreBoard.setText(event.getContestants());
         timer.start();
+        event.setStartTime(System.currentTimeMillis());
         stop.setEnabled(true);
       }
     }
@@ -296,9 +297,9 @@ public class MainPanel extends JPanel implements ActionListener
         repaint();
       }
       else{
+    	System.out.println("Winner is: " + event.getWinner().getName());
         isOver = true;
         timer.stop();
-        repaint();
       }
     }
     if(e.getSource() == reset)
