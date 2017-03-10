@@ -163,7 +163,7 @@ public class Car implements Drawable {
     }
 
     public String getDistance() {
-        return String.format("%6.2g",distance);
+        return String.format("%6.2f",distance);
     }
 
 
