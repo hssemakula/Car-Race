@@ -16,7 +16,8 @@ public class Car implements Drawable {
     private int newX, newY;
     private String pathString;
     private ArrayDeque<Drawable> route;
-    private double speed;
+    private double averageSpeed;
+    private double currentSpeed;
     private double distance;
     private long start;
     private long time;
@@ -205,16 +206,16 @@ public class Car implements Drawable {
         return tire;
     }
 
-    public void setSpeed() {
-        speed = distance/(double)(time/1000);
+    public void setAverageSpeed() {
+        averageSpeed = distance/(double)(time/1000);
     }
 
-    public double getSpeed() {
-        return speed;
+    public double getAverageSpeed() {
+        return averageSpeed;
     }
     
-    public String getSpeedString() {
-        return String.format("%10.2f", speed);
+    public String getAverageSpeedString() {
+        return String.format("%10.2f", averageSpeed);
     }
 
     public String getName() {
@@ -229,7 +230,7 @@ public class Car implements Drawable {
         else if(name.length() == 4) padding +="      ";
         else if(name.length() == 5) padding +="   ";
         else if(name.length() == 6) padding +=" ";
-        return name +padding + "          " + getSpeedString() + "               " + getDistance()+"                    "+pathString;
+        return name +padding + "          " + getAverageSpeedString() + "               " + getDistance()+"                    "+pathString;
     }
 
     @Override
