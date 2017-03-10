@@ -25,10 +25,11 @@ public class Car implements Drawable {
     private Color color;
     private String name;
     private BufferedImage img = null;
+    private boolean user;
 
     ArrayDeque<Drawable> path;
 
-    public Car(ArrayDeque<Drawable> path, String name) {
+    public Car(ArrayDeque<Drawable> path, String name, boolean user) {
         this.path = path;
         this.name = name;
         setPathString(path);
@@ -39,16 +40,21 @@ public class Car implements Drawable {
 
         try {
             img = ImageIO.read(new File("carclipart.png"));
-            Color carColor = new Color((int)(Math.random() * 25.6)*10, (int)(Math.random() * 25.6)*10, (int)(Math.random() * 25.6)*10);
-            for(int i = 10; i <= 20; i++){
-            	for(int j = 5; j <= 13; j++){
-            		img.setRGB(i, j, carColor.getRGB());
-            	}
+            Color carColor = new Color((int)(Math.random() * 25.6)*10, (int)(Math.random() * 25.6)*10, (int)(Math.random() * 25)*10);
+            if(user){
+            	//Hillary this is up to you
             }
-            for(int i = 30; i <= 36; i++){
-            	for(int j = 7; j <= 11; j++){
-            		img.setRGB(i, j, carColor.getRGB());
-            	}
+            else{
+	            for(int i = 10; i <= 20; i++){
+	            	for(int j = 5; j <= 13; j++){
+	            		img.setRGB(i, j, carColor.getRGB());
+	            	}
+	            }
+	            for(int i = 30; i <= 36; i++){
+	            	for(int j = 7; j <= 11; j++){
+	            		img.setRGB(i, j, carColor.getRGB());
+	            	}
+	            }
             }
         } catch(Exception e) {
             System.out.println("Image icon not found");
