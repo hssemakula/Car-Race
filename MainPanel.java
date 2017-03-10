@@ -267,11 +267,13 @@ public class MainPanel extends JPanel implements ActionListener
     {
       resume.setEnabled(true);
       pause.setEnabled(false);
+      timer.stop();
     }
     if(e.getSource() == resume)
     {
       resume.setEnabled(false);
       pause.setEnabled(true);
+      timer.start();
     }
     if(e.getSource() == timer2)
     {
