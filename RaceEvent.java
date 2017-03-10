@@ -56,7 +56,7 @@ public class RaceEvent
      return speeds;
     }
 
-  public String getContestants()
+   public String getContestants()
   {
     String view = "Racer          Speed          Distance          Path\n-------------------------------------------------------------\n";
     ArrayList<Car> newArrayList = new ArrayList<Car>();
@@ -72,6 +72,12 @@ public class RaceEvent
       newArrayList.add(contestants.remove(index));
     }
     
+    contestants = newArrayList;
+    newArrayList = null;
+    
+    for(Car c: contestants) view += c.toString() + "\n";
+    return view;
+  }
 
     public Car getWinner(){ 
      
