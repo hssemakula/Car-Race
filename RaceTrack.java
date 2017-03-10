@@ -179,19 +179,19 @@ public class RaceTrack implements Drawable{
                 break;
             case 5: rt5.toArray(aux);
             	break;
-	    case 6: rt6.toArray(aux);
+	        case 6: rt6.toArray(aux);
 	            break;
-	    case 7: rt7.toArray(aux);
+	        case 7: rt7.toArray(aux);
 	            break;
-	    case 8: rt8.toArray(aux);
+	        case 8: rt8.toArray(aux);
 	            break;
-	    case 9: rt9.toArray(aux);
-	            break;
-	    case 10: rt10.toArray(aux);
-		    break;
-            case 11: rt11.toArray(aux);
-		    break;
-            case 12: rt12.toArray(aux);
+	        case 9: rt9.toArray(aux);
+	        	break;
+		    case 10: rt10.toArray(aux);
+		        break;
+		    case 11: rt11.toArray(aux);
+		        break;
+		    case 12: rt12.toArray(aux);
 		        break;
         }
 
