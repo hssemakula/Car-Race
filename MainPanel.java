@@ -298,6 +298,7 @@ public class MainPanel extends JPanel implements ActionListener
       else{
         isOver = true;
         timer.stop();
+        repaint();
       }
     }
     if(e.getSource() == reset)
