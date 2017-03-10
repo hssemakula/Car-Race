@@ -35,25 +35,25 @@ public class RaceEvent
       for(Car c: contestants) 
       {
         if(c.move()) {
-        	moveCount++;
-        	c.setTime(timeStart);
+         moveCount++;
+         c.setTime(timeStart);
         }
       }  
         return moveCount > 0;
     }
     
     public double[] calculateSpeeds(){
-    	
-    	speeds = new double[contestants.size()];
-    	int i = 0;
-    	for(Car c: contestants){
-    		
-    		c.setSpeed();
-    		speeds[i] = c.getSpeed();
-    		System.out.println(c.getName() + ": " + c.getSpeed() + "");
-    		i++;
-    	}
-    	return speeds;
+     
+     speeds = new double[contestants.size()];
+     int i = 0;
+     for(Car c: contestants){
+      
+      c.setSpeed();
+      speeds[i] = c.getSpeed();
+      System.out.println(c.getName() + ": " + c.getSpeed() + "");
+      i++;
+     }
+     return speeds;
     }
 
     public String getContestants()
@@ -64,20 +64,20 @@ public class RaceEvent
     }
 
     public Car getWinner(){ 
-    	
-    	double[] aux = calculateSpeeds();
-    	
-    	double max = aux[0];
-    	int indexMax = 0;
-    	
-    	for(int i = 1; i < aux.length; i++){
-    		if(aux[i] > max){
-    			max = aux[i];
-    			indexMax = i;
-    		}
-    	}
-    	return contestants.get(indexMax); 
-    	
+     
+     double[] aux = calculateSpeeds();
+     
+     double max = aux[0];
+     int indexMax = 0;
+     
+     for(int i = 1; i < aux.length; i++){
+      if(aux[i] > max){
+       max = aux[i];
+       indexMax = i;
+      }
+     }
+     return contestants.get(indexMax); 
+     
     }
 
     public void draw(Graphics2D g2)
@@ -87,7 +87,7 @@ public class RaceEvent
     }
     
     public void setStartTime(long start){
-    	
-    	timeStart = start;
+     
+     timeStart = start;
     }
 }
