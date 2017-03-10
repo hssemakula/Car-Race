@@ -10,7 +10,7 @@ public class RaceTrack implements Drawable{
 
     int amtCheckpoints;
     ArrayList<Drawable> checkPoints;
-    ArrayDeque<Drawable>rt1, rt2, rt3, rt4;
+    ArrayDeque<Drawable>rt1, rt2, rt3, rt4, rt5, rt6, rt7, rt8, rt9, rt10, rt11, rt12;
 
     public RaceTrack(){
 
@@ -31,6 +31,30 @@ public class RaceTrack implements Drawable{
 
         rt4 = new ArrayDeque<Drawable>();
         generateRaceSequence(rt4);
+        
+        rt5 = new ArrayDeque<Drawable>();
+        generateRaceSequence(rt5);
+
+        rt6 = new ArrayDeque<Drawable>();
+        generateRaceSequence(rt6);
+
+        rt7 = new ArrayDeque<Drawable>();
+        generateRaceSequence(rt7);
+
+        rt8 = new ArrayDeque<Drawable>();
+        generateRaceSequence(rt8);
+        
+        rt9 = new ArrayDeque<Drawable>();
+        generateRaceSequence(rt9);
+
+        rt10 = new ArrayDeque<Drawable>();
+        generateRaceSequence(rt10);
+
+        rt11 = new ArrayDeque<Drawable>();
+        generateRaceSequence(rt11);
+
+        rt12 = new ArrayDeque<Drawable>();
+        generateRaceSequence(rt12);
 
     }
 
@@ -88,6 +112,22 @@ public class RaceTrack implements Drawable{
                 break;
             case 4: rt4.toArray(aux);
                 break;
+            case 5: rt5.toArray(aux);
+            	break;
+	        case 6: rt6.toArray(aux);
+	            break;
+	        case 7: rt7.toArray(aux);
+	            break;
+	        case 8: rt8.toArray(aux);
+	            break;
+	        case 9: rt9.toArray(aux);
+	        	break;
+		    case 10: rt10.toArray(aux);
+		        break;
+		    case 11: rt11.toArray(aux);
+		        break;
+		    case 12: rt12.toArray(aux);
+		        break;
         }
         double totalDistance = 0;
 
@@ -111,6 +151,14 @@ public class RaceTrack implements Drawable{
             case 2: return rt2;
             case 3: return rt3;
             case 4: return rt4;
+            case 5: return rt5;
+            case 6: return rt6;
+            case 7: return rt7;
+            case 8: return rt8;
+            case 9: return rt9;
+            case 10: return rt10;
+            case 11: return rt11;
+            case 12: return rt12;
         }
         return null;
 
@@ -129,6 +177,22 @@ public class RaceTrack implements Drawable{
                 break;
             case 4: rt4.toArray(aux);
                 break;
+            case 5: rt5.toArray(aux);
+            	break;
+	    case 6: rt6.toArray(aux);
+	            break;
+	    case 7: rt7.toArray(aux);
+	            break;
+	    case 8: rt8.toArray(aux);
+	            break;
+	    case 9: rt9.toArray(aux);
+	            break;
+	    case 10: rt10.toArray(aux);
+		    break;
+            case 11: rt11.toArray(aux);
+		    break;
+            case 12: rt12.toArray(aux);
+		        break;
         }
 
         String str = "";
