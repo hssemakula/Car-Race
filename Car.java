@@ -80,7 +80,7 @@ public class Car implements Drawable {
 
       public boolean move(){//(Checkpoint checkpoint) {
 
-    	  
+       
         int x1 = x;
         int y1 = y;
 
@@ -96,12 +96,12 @@ public class Car implements Drawable {
         if (x == newX && y == newY) {
          
          if(path.isEmpty()){
-        	 
-        	 
-        	 return false;
+          
+          
+          return false;
          }
          else{
-        	 this.getNextCheckpoint();
+          this.getNextCheckpoint();
          }
          
             
@@ -119,7 +119,7 @@ public class Car implements Drawable {
              
             }
             catch(Exception e){
-            	if ((newY - y) < 0) 
+             if ((newY - y) < 0) 
                      y -= displacement;
                 
                 else y += displacement;//This is in case flags are in the same vertical line which can happen
@@ -212,6 +212,10 @@ public class Car implements Drawable {
     public double getSpeed() {
         return speed;
     }
+    
+    public String getSpeedString() {
+        return String.format("%10.2f", speed);
+    }
 
     public String getName() {
         return name;
@@ -225,7 +229,7 @@ public class Car implements Drawable {
         else if(name.length() == 4) padding +="      ";
         else if(name.length() == 5) padding +="   ";
         else if(name.length() == 6) padding +=" ";
-        return name +padding + "          " + speed + "               " + getDistance()+"                    "+pathString;
+        return name +padding + "          " + getSpeedString() + "               " + getDistance()+"                    "+pathString;
     }
 
     @Override
