@@ -62,12 +62,10 @@ public class Car implements Drawable {
         newY = ((Checkpoint)path.pop()).getYValue() + 67;
     }
 
-    public boolean move(){//(Checkpoint checkpoint) {
+      public boolean move(){//(Checkpoint checkpoint) {
 
-        //int x1 = this.x;
-        //int y1 = this.y;
-        //int x2 = checkpoint.getXValue();
-        //int y2 = checkpoint.getYValue();
+        int x1 = x;
+        int y1 = y;
 
         boolean isNegative = false;
 
@@ -77,24 +75,23 @@ public class Car implements Drawable {
         int displacement = (int) (Math.random() * 5);
         double slope;
         double yIntercept;
-        double totalMove = 0;
         
         if (x == newX && y == newY) {
-        	
-        	if(path.isEmpty())
-        		return false;
-        	else{
-        		this.getNextCheckpoint();
-        	}
-        	
+         
+         if(path.isEmpty())
+          return false;
+         else{
+          this.getNextCheckpoint();
+         }
+         
             
         } else if (x != newX || y != newY) {
             
             try{
-            	slope = ((((double)newY - y) / ((double)newX - x)));
+             slope = ((((double)newY - y) / ((double)newX - x)));
             }
             catch(Exception e){
-            	slope = ((((double)newY - y) / 0.00000001));//This is in case flags are in the same vertical line which can happen
+             slope = ((((double)newY - y) / 0.00000001));//This is in case flags are in the same vertical line which can happen
                                                             //Both x-coordinates would be the same, thus diving by 0 would be an error
             }
             
@@ -105,14 +102,12 @@ public class Car implements Drawable {
             else x += displacement;
             
             y = (int) ((slope * x) + yIntercept);
-            totalMove = totalMove + Math.sqrt((x - newX) ^ 2 + (y - newY) ^ 2);
-
+            updateDistance(x, x1, y, y1);
             return true;
         } else if (Math.abs(x - newX) < 1 || Math.abs(y - newY) < 1) {
             y = newY;
             x = newX;
-            totalMove = totalMove + Math.sqrt((x - newX) ^ 2 + (y - newY) ^ 2);
-
+            updateDistance(x, x1, y, y1);
             return true;
         }
         //if ((newX == (Checkpoint)path.getLast()) && (newY == (Checkpoint)path.getLast())) {
@@ -146,20 +141,9 @@ public class Car implements Drawable {
      * so in the move method, the first thing you need to store are original values of x and y. then EXACTLY after you
      * calculate the new x and y before the return, call this method with the four coordinates. this will be very efficiaent I promise.
      */
-    public void setDistance(double d, Checkpoint checkpoint) {
-        int x1 = this.x;
-        int y1 = this.y;
-        int x2 = checkpoint.getXValue();
-        int y2 = checkpoint.getYValue();
-        d = distance;
-        distance = 0.0;
-
-        if (x == x2 && y == y2) {
-            distance = 0.0;
-        } else if (x != x2 || y != y2) {
-            distance = Math.sqrt((y2 - y) ^ 2 + (x2 - x) ^ 2);
-            distance += distance;
-        }
+    public void updateDistance(int x1, int x2, int y1, int y2) 
+    {
+      distance += Math.sqrt(((x2 - x1) ^ 2) + ((y2 - y1) ^ 2));
     }
 
     public double getDistance() {
@@ -219,7 +203,7 @@ public class Car implements Drawable {
         else if(name.length() == 4) padding +="      ";
         else if(name.length() == 5) padding +="   ";
         else if(name.length() == 6) padding +=" ";
-        return name +padding + "          " + speed + "               " + distance+"                    "+pathString;
+        return name +padding + "          " + speed + "               " + getDistance()+"                    "+pathString;
     }
 
     @Override
