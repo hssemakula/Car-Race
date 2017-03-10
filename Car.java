@@ -80,7 +80,7 @@ public class Car implements Drawable {
     newY = ((Checkpoint)path.pop()).getYValue() + 67;
   }
   
-  public boolean move(){//(Checkpoint checkpoint) {
+  public boolean move() {
     
     
     int x1 = x;
@@ -95,21 +95,21 @@ public class Car implements Drawable {
     double slope;
     double yIntercept;
     
-    if (x == newX && y == newY) {
-      
-      if(path.isEmpty()){
-        
-        
+    if (x == newX && y == newY) 
+    {
+      if(path.isEmpty())
+      {
         return false;
       }
-      else{
+      else
+      {
         this.getNextCheckpoint();
       }
-      
-      
-    } else if (x != newX || y != newY) {
-      
-      try{
+    } 
+    else if (x != newX || y != newY) 
+    {
+      try
+      {
         slope = ((((double)newY - y) / ((double)newX - x)));
         yIntercept = newY - (slope * newX);
         
@@ -120,12 +120,17 @@ public class Car implements Drawable {
         y = (int) ((slope * x) + yIntercept);
         
       }
-      catch(Exception e){
-        if ((newY - y) < 0) 
+      catch(Exception e)
+      {
+        if ((newY - y) < 0){ 
           y -= displacement;
-        
-        else y += displacement;//This is in case flags are in the same vertical line which can happen
-        //Both x-coordinates would be the same, thus diving by 0 would be an error
+          updateDistance(x, x1, y, y1);
+        }
+        else{
+          y += displacement;//This is in case flags are in the same vertical line which can happen
+          //Both x-coordinates would be the same, thus diving by 0 would be an error
+          updateDistance(x, x1, y, y1);
+        }
       }
       updateDistance(x, x1, y, y1);
       return true;
@@ -135,11 +140,6 @@ public class Car implements Drawable {
       updateDistance(x, x1, y, y1);
       return true;
     }
-    //if ((newX == (Checkpoint)path.getLast()) && (newY == (Checkpoint)path.getLast())) {
-    //  getTime();
-    //return false; //This method ONLY returns false when the new x and new y are equal to the final x and final y so
-    //this false should have a condition.
-    //}
     return false;
   }
   
