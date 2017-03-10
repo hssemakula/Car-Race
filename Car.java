@@ -32,6 +32,7 @@ public class Car implements Drawable {
     public Car(ArrayDeque<Drawable> path, String name, boolean user) {
         this.path = path;
         this.name = name;
+	this.user = user;
         setPathString(path);
 
         x = ((Checkpoint)path.peek()).getXValue();
