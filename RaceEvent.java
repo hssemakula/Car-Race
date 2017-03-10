@@ -18,12 +18,12 @@ public class RaceEvent
 ublic void innitialize(String usrName, Integer numOpp)
     {
         track = new RaceTrack();
-        Car userCar = new Car(track.getRoute(1), usrName);
+        Car userCar = new Car(track.getRoute(1), usrName, true);
         contestants = new ArrayList<Car>();
         contestants.add(userCar);
         for(int i = 2; i <= numOpp; i++)
         {
-            contestants.add(new Car(track.getRoute(i), "Racer "+i));
+            contestants.add(new Car(track.getRoute(i), "Racer "+i, false));
         }
     }}
 
