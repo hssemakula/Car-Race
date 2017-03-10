@@ -208,7 +208,7 @@ public class MainPanel extends JPanel implements ActionListener
       if(!isOver)event.draw((Graphics2D)g);
       else
       {
-        g.drawString(event.getWinner() + event.getContestants(), 210, 100);
+        JOptionPane.showMessageDialog(this,"RACE OVER\n\n"+event.getContestants(),"RACE ENDED", 1);
       }
     }
   }
@@ -282,7 +282,7 @@ public class MainPanel extends JPanel implements ActionListener
       if(startCounter == 4)
       {
         timer2.stop();
-        event = new RaceEvent(usrName, numOpp);
+        event = new RaceEvent(usrName, numOpp, usrColor);
         scoreBoard.setText(event.getContestants());
         timer.start();
         stop.setEnabled(true);
@@ -296,8 +296,8 @@ public class MainPanel extends JPanel implements ActionListener
         repaint();
       }
       else{
-       isOver = true;
-       timer.stop();
+        isOver = true;
+        timer.stop();
       }
     }
     if(e.getSource() == reset)
