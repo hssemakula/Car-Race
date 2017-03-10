@@ -80,6 +80,7 @@ public class Car implements Drawable {
 
       public boolean move(){//(Checkpoint checkpoint) {
 
+    	  
         int x1 = x;
         int y1 = y;
 
@@ -94,10 +95,13 @@ public class Car implements Drawable {
         
         if (x == newX && y == newY) {
          
-         if(path.isEmpty())
-          return false;
+         if(path.isEmpty()){
+        	 
+        	 
+        	 return false;
+         }
          else{
-          this.getNextCheckpoint();
+        	 this.getNextCheckpoint();
          }
          
             
@@ -139,12 +143,11 @@ public class Car implements Drawable {
 
     //This method will give you false time because you choose what time to start and stop. however it can be used as a "helper method"
     //for the one below
-    public void setTime(long t, long s) {
-        s = start;
-        t = time;
-        start = System.currentTimeMillis();
+    public void setTime(long s) {
+        start = s;
         time = System.currentTimeMillis() - start;
     }
+
 
     //At any time the time since this car started moving is System.currentTimeMillis() - start; which is what you have above
     //but your start variable should be innitialized in the constructor i.e when the car "REALY" starts moving.
@@ -203,7 +206,7 @@ public class Car implements Drawable {
     }
 
     public void setSpeed() {
-        speed = distance/time;
+        speed = distance/(double)(time/1000);
     }
 
     public double getSpeed() {
