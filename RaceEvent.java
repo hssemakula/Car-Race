@@ -10,22 +10,22 @@ public class RaceEvent
     private ArrayList<Car> contestants;
     private RaceTrack track;
 
-    public RaceEvent(String usrName, Integer numOpp)
+    public RaceEvent(String usrName, Integer numOpp, Color usrColor)
     {
-        innitialize(usrName, numOpp);
+        innitialize(usrName, numOpp, usrColor);
     }
 
-ublic void innitialize(String usrName, Integer numOpp)
+    public void innitialize(String usrName, Integer numOpp, Color usrColor)
     {
         track = new RaceTrack();
-        Car userCar = new Car(track.getRoute(1), usrName, true);
+        Car userCar = new Car(track.getRoute(1), usrName, true, usrColor);
         contestants = new ArrayList<Car>();
         contestants.add(userCar);
         for(int i = 2; i <= numOpp; i++)
         {
-            contestants.add(new Car(track.getRoute(i), "Racer "+i, false));
+            contestants.add(new Car(track.getRoute(i), "Racer "+i, false, usrColor));
         }
-    }}
+    }
 
     public boolean race()
     {
@@ -43,7 +43,6 @@ ublic void innitialize(String usrName, Integer numOpp)
         for(Car c: contestants) view += c.toString() + "\n";
         return view;
     }
-
 
     public String getWinner(){ return""; }
 
