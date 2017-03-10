@@ -67,9 +67,15 @@ public class Car implements Drawable {
         double slope;
         double yIntercept;
         double totalMove = 0;
-
+        
         if (x == newX && y == newY) {
-            return false;
+        	
+        	if(path.isEmpty())
+        		return false;
+        	else{
+        		this.getNextCheckpoint();
+        	}
+        	
             
         } else if (x != newX || y != newY) {
             
