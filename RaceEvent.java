@@ -48,9 +48,9 @@ public class RaceEvent
      int i = 0;
      for(Car c: contestants){
       
-      c.setAverageSpeed();
-      speeds[i] = c.getAverageSpeed();
-      System.out.println(c.getName() + ": " + c.getAverageSpeed() + "");
+      c.setSpeed();
+      speeds[i] = c.getSpeed();
+      System.out.println(c.getName() + ": " + c.getSpeed() + "");
       i++;
      }
      return speeds;
