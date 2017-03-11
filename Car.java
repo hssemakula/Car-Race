@@ -243,7 +243,7 @@ public class Car implements Drawable {
     g2.drawImage(img, null, x, y);  
     /*Hillary: This code enables the name of the car to be drawn at it's bottom, if it is the user's car */
     if(user){
-     g2.setFont( new Font("dialog", Font.PLAIN, 10));
+     g2.setFont( new Font("dialog", Font.BOLD, 10));
       g2.drawString(name, x, y+ 30);
     }
   }
