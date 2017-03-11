@@ -1,5 +1,6 @@
 /* Hillary Ssemakula. StarterPanel1 class. creates first panel user sees when they start game.
- * Vontains form used to collect certain configurations for a race as determined by the user
+ * Contains form used to collect certain configurations for a race as determined by the user
+ * such as number of participants, name and color of user's car.
  */
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -29,6 +30,8 @@ public class StarterPanel1 extends JPanel
   //JComboBox that will use array above
   private JComboBox<String> listChoices;
   
+  //Constructor: sets size of panel and calls the innitilize method. @param JButton join, JButton cancel.
+  //parameters required by innitialize method.
   public StarterPanel1(JButton join, JButton cancel) 
   {
     setPreferredSize(new Dimension(500, 350));
@@ -55,7 +58,7 @@ public class StarterPanel1 extends JPanel
       if(i == 0) { holderPanels[i].setPreferredSize(new Dimension(500, 170)); holderPanels[0].setBackground(new Color(70,130,180)); }
       else holderPanels[i].setPreferredSize(new Dimension(500, 35));
     }
-    
+    //Introduction text added to text area
     intro = new JTextArea("         WELCOME TO THE SAHIRO GRANDPRIX\n\n       Choose the number of opponents\n"+
                           "     Choose a color for a car and provide your name\n", 7, 30);
     intro.setLineWrap(true);
@@ -63,8 +66,9 @@ public class StarterPanel1 extends JPanel
     intro.setForeground(new Color(0,0,128));
     intro.setFont(new Font("dialog", Font.PLAIN, 18));
     JScrollPane scroller = new JScrollPane(intro, 22, 32);
-    holderPanels[0].add(scroller);
+    holderPanels[0].add(scroller); //JScrollPane with text area is added to first holder panel
     
+    //In this block of code, every label and its accompanying textfield are created and added on to a holder panel
     numOpp = new JLabel("CHOOSE NUMBER OF CARS IN RACE(2-10): ");
     numOppTxt = new JTextField(10);
     holderPanels[1].add(numOpp); holderPanels[1].add(numOppTxt);
@@ -76,11 +80,11 @@ public class StarterPanel1 extends JPanel
     
     holderPanels[4].add(join);
     holderPanels[4].add(cancel); 
-    //all objects are placed on 'holder panels' that are then placed on the bigger panel
+    //all objects placed on 'holder panels' are then placed on the bigger panel
     for(JPanel p: holderPanels) add(p); 
   }
   
-  /* Method getOpp: returns integer value representing the number of participants that the user wants
+  /* Method getOpp: returns integer value representing the number of participants that the user wants.
    *                this number is extracted from the numOppTxt text field.
    */
   public Integer getOpp()
