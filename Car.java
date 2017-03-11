@@ -151,7 +151,6 @@ public class Car implements Drawable {
   }
 
   public long getTime() {
-    //setTime(System.currentTimeMillis());
     return time;
   }
   /* Hillary. Method updateDistance. @params int x1, int x2, int y1, int y2. This method takes in 4 values
