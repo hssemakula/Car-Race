@@ -85,22 +85,29 @@ public class RaceEvent
       +"\n----------------------------------------------------------------------------\n";
     ArrayList<Car> newArrayList = new ArrayList<Car>(); //arraylist where sorted cars are placed
     //cars are sorted by speed
+    //This code is executed until the contestants arraylist is emptied.
     while(contestants.size() > 0)
     {
       Car maxSpeedCar = contestants.get(0); //first car is marked
       int index = 0; //first index is marked
       for(int i = 0; i < contestants.size(); i++)
       {
-        //if any cars speed is greater that the marked car's speed, that index is stored in index
-        if(maxSpeedCar.getSpeed() < contestants.get(i).getSpeed()) index = i;
+        //if any car's speed is greater that the marked car's speed, it's index is stored in the index variable
+        //and it is marked as the car with the greates speed.
+        if(maxSpeedCar.getSpeed() < contestants.get(i).getSpeed())
+        {
+          index = i;
+          maxSpeedCar = contestants.get(i);
+        }
       }
-      newArrayList.add(contestants.remove(index));
+      newArrayList.add(contestants.remove(index)); //after going through the arraylist, the car with the highest speed is removed 
+                                                   //and put into the new arraylist
     }
     
-    contestants = newArrayList;
-    newArrayList = null;
+    contestants = newArrayList; //contestants arraylist variable is then assigned to the new arraylist.
+    newArrayList = null; //new arraylist is cleared.
     
-    for(Car c: contestants) view += c.toString() + "\n";
+    for(Car c: contestants) view += c.toString() + "\n"; //car details are added to the list
     return view;
   }
   
@@ -123,6 +130,9 @@ public class RaceEvent
     
   }
   
+  /* Method draw. @param Graphics2D g2. takes a graphics object and calls
+   * each car's and track's draw method. the track's draw method in turn calls the checkpoint's draw method too
+   */ 
   public void draw(Graphics2D g2)
   {
     track.draw(g2);
