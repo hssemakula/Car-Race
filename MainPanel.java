@@ -234,6 +234,7 @@ public class MainPanel extends JPanel implements ActionListener
       if(!isOver)event.draw((Graphics2D)g); 
       else
       {
+        //When the game is over, the following names are written to the panel
         g.setColor(new Color(95,158,160));
         g.setFont(new Font("Dialog", Font.BOLD, 20));
         g.drawString("Hillary Ssemakula", 400,210);
@@ -245,98 +246,125 @@ public class MainPanel extends JPanel implements ActionListener
   
   /* @Override actionPerformed. @param ActionEvent.
    * handels all action events.
+   * performs different actions when different buttons on different panels are clicked.
    */
   public void actionPerformed(ActionEvent e)
   {
     if(e.getSource() == cancel) System.exit(0); //exits when cancel button is clicked.
+    
     /* When join is clicked if all fields are filled in with the right values, second panel is displayed
      * and first panel is removed from window. else error message is displayed.
      */
     if(e.getSource() == join)
     {
-      if(starterPanel1.getOpp() == -1 || starterPanel1.getOpp() > 10 || starterPanel1.getOpp() < 2)
+      if(starterPanel1.getOpp() == -1 || starterPanel1.getOpp() > 10 || starterPanel1.getOpp() < 2) 
       {
+        //when a number that is not between 2 and 10 is entered for number of participants this message is called
         JOptionPane.showMessageDialog(this,"Please enter a valid number for number of participants\n"+
                                       "The race should have between  2 and 10 participants","INVALID DATA", 0);
       }
-      else if(starterPanel1.getUsrName().equals(""))
+      else if(starterPanel1.getUsrName().equals("")) //when a name is not entered the following error message is shown
       {
         JOptionPane.showMessageDialog(this,"Please enter a name","INVALID DATA", 0);
       }
       else{
-        numOpp = starterPanel1.getOpp();
+        //if all data entered is correct, the color option selected, name and number typed are extracted
+        numOpp = starterPanel1.getOpp(); //respective instance variables are set
         usrColor = starterPanel1.getUsrColor();
         usrName = starterPanel1.getUsrName();
-        window.remove(starterPanel1);
+        window.remove(starterPanel1); //The first panel(the one asking for color, name and number of participants) is removed
+        //The second panel is created using the users color, name and number of participants and appropriate buttons.
         starterPanel2 = new StarterPanel2(start, reenter, numOpp, starterPanel1.colorString(), usrName);
-        window.getContentPane().add(starterPanel2);
-        window.setSize(420, 240);
-        window.validate();
+        window.getContentPane().add(starterPanel2); //second panel is added to window and displayed
+        window.setSize(420, 240); //size of window set to that of the second panel
+        window.validate(); //method called so that window can be revalidated since panels on it have been changed
       }
     }
-    //when RE-ENTER is clicked, first panel is displayed again and second panel is removed from window
+    //when RE-ENTER is clicked, first panel is displayed again and second panel is removed from window so that user
+    //can change choices for color, number of participants and name if needed
     if(e.getSource() == reenter)
     {
       window.remove(starterPanel2);
       window.getContentPane().add(starterPanel1);
-      window.setSize(520, 390);
-      window.validate();
+      window.setSize(520, 390); //size of window roughly set to that of first panel again
+      window.validate(); //revalidation to remove errors as panels are added and removed
     }
     //when START is clicked, this panel(Main Panel) is displayed on window and second panel is removed from window
     if(e.getSource() == start)
     {
       window.remove(starterPanel2);
       window.getContentPane().add(this);
-      window.setSize(1350, 540); //--here
+      window.setSize(1350, 540);
       window.validate();
       window.repaint();
-      timer2.start();
+      timer2.start();// The timer that controls how the starting counter is displayed is started
     }
-    
+    //when pause is clicked, it is disabled and the resume button is enabled. the main game timer is stopped which pauses the game.
     if(e.getSource() == pause)
     {
       resume.setEnabled(true);
       pause.setEnabled(false);
-      timer.stop();
+      timer.stop(); //pauses car movement
     }
+    //When resume is clicked, it is disabled and the button pause is enabled again. the main game timer is also started again.
     if(e.getSource() == resume)
     {
       resume.setEnabled(false);
       pause.setEnabled(true);
-      timer.start();
+      timer.start(); //this resumes car movement
     }
+    //when event source is timer2, the Counter is incremented and repaint() is called which draws the counter on the center of the panel
     if(e.getSource() == timer2)
     {
       startCounter += 1;
       repaint();
+      /* when the counter becomes 4, this timer is stopped
+       * a RaceEvent object is created with the name, color and number of participants the user selected 
+       * the scoreBoard text area on the scorePanel is updated to show the cars' speeds, names, distances and paths.
+       * the main timer is started
+       */ 
       if(startCounter == 4)
       {
-        timer2.stop();
+        timer2.stop(); 
         event = new RaceEvent(usrName, numOpp, usrColor);
         scoreBoard.setText(event.getContestants());
-        timer.start();
-        event.setStartTime(System.currentTimeMillis());
-        stop.setEnabled(true);
+        timer.start(); //this starts movement of the cars
+        event.setStartTime(System.currentTimeMillis()); //sets time when the race event starts
+        stop.setEnabled(true); //All required buttons for game are enabled.
         pause.setEnabled(true);
         reset.setEnabled(true);
       }
     }
+    /*When event source is the main timer.
+     * The race method of the raceEvent class is called. 
+     * This method moves the cars and returns true if atleast one car moves, false if noneof the car moves.
+     * If the race method returns false the timer is stopped and the game ends.
+     */ 
     if(e.getSource() == timer)
     {
       if(event.race())
       {
-        scoreBoard.setText(event.getContestants());
-        repaint();
+        scoreBoard.setText(event.getContestants());//as the cars race the scoreBoard is updated
+        repaint(); //The panel is repainted which draws the movement of the cars on it.
       }
-      else{
-        isOver = true;
-        timer.stop();
+      else
+      {
+        //the following code is executed when the race method returns false i.e when no car is moving anymore
+        isOver = true; 
+        timer.stop(); //timer stopped.
         repaint();
-        pause.setEnabled(false);
+        pause.setEnabled(false); //pause and stop buttons disabled.
         stop.setEnabled(false);
-        JOptionPane.showMessageDialog(this,"\tRACE CHAMPION\n"+event.getWinner(),"RACE ENDED", 1);
+        JOptionPane.showMessageDialog(this,"\tRACE CHAMPION\n"+event.getWinner(),"RACE ENDED", 1); //the winner of the race is shown
+        //list of all participants with the winner at the top is shown.
         JOptionPane.showMessageDialog(this,"\tRACE STATISTICS\n\n"+event.getContestants(),"RACE ENDED", 1);
+        //The user is asked if they want to run another simulation
         int option = JOptionPane.showConfirmDialog(this,"Would you like to start another simulation?","TRY AGAIN", 1);
+        
+        /* if the user clicks yes, the main panel is re-innitialized and removed from the window JFrame
+         * the first panel which allows user configuratin of name, color and number of participants is added
+         * to the window and the appropriate size of the window is set.
+         */ 
         if(option == 0)
         {  
           window.remove(this);
@@ -346,12 +374,15 @@ public class MainPanel extends JPanel implements ActionListener
           window.validate();
           window.repaint();
         }
+        //if the user clicks no, the program is closed.
         else if(option == 1)
         {
           System.exit(0);
         }
       }
     }
+    //If the reset button is clicked, the main panel is removed from the window and the first panel is added back to the
+    //window reseting the game to the beginning
     if(e.getSource() == reset)
     {
       window.remove(this);
@@ -361,6 +392,7 @@ public class MainPanel extends JPanel implements ActionListener
       window.validate();
       window.repaint();
     } 
+    //if he user clicks stop during the simulation. the main game timer is stopped, the race statistics are shown and the program closes.
     if(e.getSource() == stop)
     {
       timer.stop();
