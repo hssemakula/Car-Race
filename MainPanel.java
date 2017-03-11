@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.Timer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JDialog;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import javax.swing.JTextArea;
@@ -117,7 +118,7 @@ public class MainPanel extends JPanel implements ActionListener
     JPanel holderPanel2 = new JPanel();
     holderPanel2.setPreferredSize(new Dimension(1000,30));
     holderPanel2.setBackground(new Color(95,158,160));
-    holderPanel2.add(new JLabel("Copyright Ã‚Â© Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
+    holderPanel2.add(new JLabel("Copyright © Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
     add(holderPanel2, BorderLayout.SOUTH);
   }
   
@@ -208,7 +209,11 @@ public class MainPanel extends JPanel implements ActionListener
       if(!isOver)event.draw((Graphics2D)g);
       else
       {
-        JOptionPane.showMessageDialog(this,"RACE OVER\n\n"+event.getContestants(),"RACE ENDED", 1);
+        g.setColor(new Color(95,158,160));
+        g.setFont(new Font("Dialog", Font.BOLD, 20));
+        g.drawString("Hillary Ssemakula", 400,210);
+        g.drawString("Rodrigo Choque Cardenas", 400,240); 
+        g.drawString("Sarah Higgins", 400,270); 
       }
     }
   }
@@ -300,6 +305,24 @@ public class MainPanel extends JPanel implements ActionListener
         isOver = true;
         timer.stop();
         repaint();
+        pause.setEnabled(false);
+        stop.setEnabled(false);
+        JOptionPane.showMessageDialog(this,"\tRACE CHAMPION\n"+event.getWinner(),"RACE ENDED", 1);
+        JOptionPane.showMessageDialog(this,"\tRACE STATISTICS\n\n"+event.getContestants(),"RACE ENDED", 1);
+        int option = JOptionPane.showConfirmDialog(this,"Would you like to start another simulation?","TRY AGAIN", 1);
+        if(option == 0)
+        {  
+          window.remove(this);
+          this.innitialize();
+          window.getContentPane().add(starterPanel1);
+          window.setSize(520, 370);
+          window.validate();
+          window.repaint();
+        }
+        else if(option == 1)
+        {
+          System.exit(0);
+        }
       }
     }
     if(e.getSource() == reset)
@@ -313,7 +336,8 @@ public class MainPanel extends JPanel implements ActionListener
     } 
     if(e.getSource() == stop)
     {
-      JOptionPane.showMessageDialog(this,"Race Stopped by User\n\n"+event.getContestants(),"RACE ENDED", 1);
+      timer.stop();
+      JOptionPane.showMessageDialog(this,"Race Stopped by User\n\n"+event.getContestants(),"RACE ENDED", 0);
       System.exit(0);
     }  
   }
