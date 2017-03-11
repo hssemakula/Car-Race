@@ -182,7 +182,7 @@ public class Car implements Drawable {
   public int setEngine() {
     int randInt = (int)(Math.random() * 5);
     engine -= randInt;
-    return randInt
+    return randInt;
   }
   
   public int getEngine() {
@@ -192,7 +192,7 @@ public class Car implements Drawable {
   public int setTire() {
     int randInt = (int)(Math.random() * 5);
     tire -= randInt;
-    return randInt
+    return randInt;
   }
   
   public int getTire() {
