@@ -1,6 +1,7 @@
 /* Hillary Ssemakula.
  * MainPanel: This class is the panel where the race simulation is displayed along with instructions and scores
- *            This panel also contains a window and different panels are displayed on it as the user sets up te race
+ *            This panel also contains a window and different panels are displayed on it as the user sets up the race
+ *            and clicks certain buttons
  */
 
 import javax.swing.JPanel;
@@ -24,33 +25,32 @@ public class MainPanel extends JPanel implements ActionListener
 {
   private RaceEvent event; //RaceEvent object that moves and draws cars.
   //All button variables to be displayed on panel are created
-  private JButton join;
-  private JButton cancel;
-  private JButton start;
-  private JButton reenter;
-  private JButton pause;
-  private JButton resume;
-  private JButton reset;
-  private JButton stop;
+  private JButton join; //adds user's Car to race
+  private JButton cancel; //exits
+  private JButton start; //starts race
+  private JButton reenter; //takes user back to configuration screen
+  private JButton pause;   //pauses the simulation
+  private JButton resume;  //resumes simulation after pause.
+  private JButton reset;   //resets race takes user back to configuration screen
+  private JButton stop;    //Stops race all together
   
   //The two panel variables shown during race set up are created
-  private StarterPanel1 starterPanel1;
-  private StarterPanel2 starterPanel2;
+  private StarterPanel1 starterPanel1; //Contains user choices and selectons like name, color of car, displayed first
+  private StarterPanel2 starterPanel2; //Shows user what choices they configured(color, name) displays options to start race or reconfigure options.
   
   //The two panel variables shown during race on either side of the main panel are created
-  private JPanel infoPanel;
-  private JPanel scorePanel;
+  private JPanel infoPanel; //Panel displayed on the left of game simulation: shows manual
+  private JPanel scorePanel;//Panel displayed on the right of game simulation: shows game statistics for all cars(speed, distance and path);
   
-  //Timer variable contols movement of cars every 200ms
-  private Timer timer;
-  private Timer timer2;
+  private Timer timer;  //Timer variable to contain main timer of game that starts and stops simulation
+  private Timer timer2;  //Timer variable to control the counter and at the beginning of the game.
   private boolean isOver; //keeps track. stores true/false depending on whether race is over or not.
   private Integer numOpp; //stores number of race participants that user chooses (2-10)
   private Color usrColor; //stores color that user chooses from drop down menu
-  private String usrName; //stores name that user enters at start
+  private String usrName; //stores name that user enters at start of the game
   public static JFrame window; //Static window varible, as panels change during setup they are placed here.
-  private int startCounter;
-  private JTextArea scoreBoard;
+  private int startCounter;  //Counter displayed before the beginning of the game
+  private JTextArea scoreBoard; //Text area that displays all statistics(speed, distance and path) of all cars as race happens
   
   public MainPanel()
   {
@@ -118,7 +118,7 @@ public class MainPanel extends JPanel implements ActionListener
     JPanel holderPanel2 = new JPanel();
     holderPanel2.setPreferredSize(new Dimension(1000,30));
     holderPanel2.setBackground(new Color(95,158,160));
-    holderPanel2.add(new JLabel("Copyright © Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
+    holderPanel2.add(new JLabel("Copyright Â© Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas 2017"));
     add(holderPanel2, BorderLayout.SOUTH);
   }
   
@@ -151,7 +151,7 @@ public class MainPanel extends JPanel implements ActionListener
     holderPanel2.setPreferredSize(new Dimension(500, 300));//--here
     holderPanel2.setBackground(Color.white);
     scorePanel.add(holderPanel2);
-    scoreBoard = new JTextArea("", 10,30);
+    scoreBoard = new JTextArea("", 12,33);
     holderPanel2.add(scoreBoard);
     scoreBoard.setEditable(false);
     scoreBoard.setFont(new Font("dialog", Font.BOLD, 12));
