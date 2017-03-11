@@ -145,8 +145,6 @@ public class Car implements Drawable {
     return false;
   }
   
-  //This method will give you false time because you choose what time to start and stop. however it can be used as a "helper method"
-  //for the one below
   public void setTime(long s) {
     start = s;
     time = System.currentTimeMillis() - start;
@@ -156,7 +154,11 @@ public class Car implements Drawable {
     //setTime(System.currentTimeMillis());
     return time;
   }
-  
+  /* Hillary. Method updateDistance. @params int x1, int x2, int y1, int y2. This method takes in 4 values
+   * and uses the mathematical distance formular to find the distance between the pair of coordinates
+   * Distance found is between (x1, y1) and (x2, y2). The distance the car has moved is updated by increasing it
+   * by the distance between the line. The speed of the car is calculated from this distance also.
+   */
   public void updateDistance(int x1, int x2, int y1, int y2) {
     double displacement = Math.sqrt(Math.pow((double)(x2 - x1),2) + Math.pow((double)(y2 - y1),2));
     distance += displacement;
@@ -222,7 +224,9 @@ public class Car implements Drawable {
   public String getName() {
     return name;
   }
-  
+  /* Hillary. Method @override toString(). returns the name, speed, distance and path of the car on one line.
+   * depending on the length of the car's name, the string is padded with spaces.
+   */
   public String toString() {
     String padding = "";
     if(name.length() == 1) padding +="           ";
@@ -237,7 +241,8 @@ public class Car implements Drawable {
   @Override
   public void draw(Graphics2D g2) {
     g2.setColor(color);
-    g2.drawImage(img, null, x, y);    
+    g2.drawImage(img, null, x, y);  
+    /*Hillary: This code enables the name of the car to be drawn at it's bottom, if it is the user's car */
     if(user){
      g2.setFont( new Font("dialog", Font.PLAIN, 10));
       g2.drawString(name, x, y+ 30);
