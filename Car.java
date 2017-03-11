@@ -53,6 +53,7 @@ public class Car implements Drawable {
             img.setRGB(i, j, usrColor.getRGB());
           }
         }
+        color = usrColor;
       }
       else{
         for(int i = 10; i <= 20; i++){
@@ -210,8 +211,7 @@ public class Car implements Drawable {
   }
   
   public double getSpeed() {
-    //if(speed == Double.POSTIVE_INFINITY) return 0;
-    else return speed;
+    return speed;
   }
   
   public String getSpeedString() {
@@ -237,5 +237,10 @@ public class Car implements Drawable {
   public void draw(Graphics2D g2) {
     g2.setColor(color);
     g2.drawImage(img, null, x, y);
+    
+    if(user){
+      g2.setFont( new Font("dialog", Font.PLAIN, 10));
+      g2.drawString(name, x, y+ 30);
+    }
   }
 }
