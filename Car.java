@@ -179,20 +179,20 @@ public class Car implements Drawable {
     return pathString;
   }
   
-  public void setEngine(int e) {
-    e = engine;
+  public int setEngine() {
     int randInt = (int)(Math.random() * 5);
     engine -= randInt;
+    return randInt
   }
   
   public int getEngine() {
     return engine;
   }
   
-  public void setTire(int t) {
-    t = tire;
+  public int setTire() {
     int randInt = (int)(Math.random() * 5);
     tire -= randInt;
+    return randInt
   }
   
   public int getTire() {
@@ -200,7 +200,7 @@ public class Car implements Drawable {
   }
 
   public int setDisplacement() {
-    return (getTire() + getEngine());
+    return setEngine() + getTire();
   }
   
   public void setSpeed() {
@@ -208,7 +208,6 @@ public class Car implements Drawable {
   }
   
   public double getSpeed() {
-    //if(speed == Double.POSTIVE_INFINITY) return 0;
      return speed;
   }
   
