@@ -53,13 +53,14 @@ public class Car implements Drawable {
             img.setRGB(i, j, usrColor.getRGB());
           }
         }
+         color = usrColor;
       }
       else{
         for(int i = 10; i <= 20; i++){
           for(int j = 5; j <= 13; j++){
             img.setRGB(i, j, carColor.getRGB());
           }
-           color = usrColor;
+          
         }
         for(int i = 30; i <= 36; i++){
           for(int j = 7; j <= 11; j++){
