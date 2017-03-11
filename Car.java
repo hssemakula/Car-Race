@@ -20,8 +20,8 @@ public class Car implements Drawable {
   private double distance;
   private long start;
   private long time;
-  private double engine;
-  private double tire;
+  private int engine;
+  private int tire;
   private Color color;
   private String name;
   private BufferedImage img = null;
@@ -53,7 +53,6 @@ public class Car implements Drawable {
             img.setRGB(i, j, usrColor.getRGB());
           }
         }
-        color = usrColor;
       }
       else{
         for(int i = 10; i <= 20; i++){
@@ -80,7 +79,6 @@ public class Car implements Drawable {
   
   public boolean move() {
     
-    
     int x1 = x;
     int y1 = y;
     
@@ -89,7 +87,7 @@ public class Car implements Drawable {
     if ((newX - x) < 0) 
       isNegative = true;
     
-    int displacement = (int) (Math.random() * 5);
+    int displacement = setDisplacement();
     double slope;
     double yIntercept;
     
@@ -149,20 +147,13 @@ public class Car implements Drawable {
     start = s;
     time = System.currentTimeMillis() - start;
   }
-  
-  
-  
-  //At any time the time since this car started moving is System.currentTimeMillis() - start; which is what you have above
-  //but your start variable should be innitialized in the constructor i.e when the car "REALY" starts moving.
-  //so if you call the above method with in this method like settime(System.currentTimeMillis(), start(one innitialized in constructor))
-  //it should produce the right time, any time.  .....This method should also be called when the car reaches it's final checkpoint
+
   public long getTime() {
     //setTime(System.currentTimeMillis());
     return time;
   }
   
-  public void updateDistance(int x1, int x2, int y1, int y2) 
-  {
+  public void updateDistance(int x1, int x2, int y1, int y2) {
     double displacement = Math.sqrt(Math.pow((double)(x2 - x1),2) + Math.pow((double)(y2 - y1),2));
     distance += displacement;
     setTime(start);
@@ -188,22 +179,28 @@ public class Car implements Drawable {
     return pathString;
   }
   
-  public void setEngine(double e) {
+  public void setEngine(int e) {
     e = engine;
-    engine = (int)(Math.random() * 5);
+    int randInt = (int)(Math.random() * 5);
+    engine -= randInt;
   }
   
-  public double getEngine() {
+  public int getEngine() {
     return engine;
   }
   
-  public void setTire(double t) {
+  public void setTire(int t) {
     t = tire;
-    tire = (int)(Math.random() * 5);
+    int randInt = (int)(Math.random() * 5);
+    tire -= randInt;
   }
   
-  public double getTire() {
+  public int getTire() {
     return tire;
+  }
+
+  public int setDisplacement() {
+    return (getTire() + getEngine());
   }
   
   public void setSpeed() {
@@ -211,7 +208,8 @@ public class Car implements Drawable {
   }
   
   public double getSpeed() {
-    return speed;
+    //if(speed == Double.POSTIVE_INFINITY) return 0;
+     return speed;
   }
   
   public String getSpeedString() {
@@ -237,10 +235,5 @@ public class Car implements Drawable {
   public void draw(Graphics2D g2) {
     g2.setColor(color);
     g2.drawImage(img, null, x, y);
-    
-    if(user){
-      g2.setFont( new Font("dialog", Font.PLAIN, 10));
-      g2.drawString(name, x, y+ 30);
-    }
   }
 }
