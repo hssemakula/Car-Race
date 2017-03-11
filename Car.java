@@ -202,7 +202,7 @@ public class Car implements Drawable {
   }
 
   public int setDisplacement() {
-    return setEngine() + getTire();
+    return setEngine() + setTire();
   }
   
   public void setSpeed() {
