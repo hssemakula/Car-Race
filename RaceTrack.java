@@ -1,25 +1,37 @@
-import java.awt.Graphics;
+/* Created by Rodrigo Choque Cardenas
+ * 
+ * The next class implements the race track where our race will take place
+ *  
+ * The race is in charge of creating a certain amount of checkpoints -stored on an array list. Once these are created, 
+ * we use them to build 12 deques. These deques will be filled with references to the checkpoint objects, and they 
+ * will be filled with random checkpoint sequences. Each deque will be assigned to each car object, 
+ * so the car will have a "map" of what route it must follow.
+ * 
+ * The class implements the Drawable interface so it can draw the checkpoint on its array list.
+ */
+
 import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
-
-import javax.swing.JPanel;
 
 public class RaceTrack implements Drawable{
 
+	//atributes
     int amtCheckpoints;
     ArrayList<Drawable> checkPoints;
-    ArrayDeque<Drawable>rt1, rt2, rt3, rt4, rt5, rt6, rt7, rt8, rt9, rt10, rt11, rt12;
+    ArrayDeque<Drawable>rt1, rt2, rt3, rt4, rt5, rt6, rt7, rt8, rt9, rt10, rt11, rt12; //each deque will have different sequence of checkpoitns
 
+    //constructor
     public RaceTrack(){
 
-        amtCheckpoints = 4;
+        amtCheckpoints = 4; //this could be change to include more chekpoints
         checkPoints = new ArrayList<Drawable>();
 
+        //checkpoints are created
         for(int i = 1; i <= amtCheckpoints; i++)
             checkPoints.add(new Checkpoint((char)(64 + i)));
 
+        //each deque is filled with a sequence of references to the checkpoints
         rt1 = new ArrayDeque<Drawable>();
         generateRaceSequence(rt1);
 
@@ -58,22 +70,27 @@ public class RaceTrack implements Drawable{
 
     }
 
+    //method the uses a Graphics2D object to draw each checkpoint in the array list
     public void draw(Graphics2D g2){
 
         for(Drawable cp: checkPoints)
             cp.draw(g2);
     }
 
+    //this method generates a random sequence for each deque
     private void generateRaceSequence(ArrayDeque<Drawable> rs){
 
         for(int i = 1; i <= amtCheckpoints; i++){
 
             int aux = (int)(Math.random() * 4);
 
+            //pushes first checkpoint into deque
             if(rs.isEmpty()){
                 rs.add(checkPoints.get(aux));
             }
             else{
+            	
+            	//the if statement makes sure there is no repeated checkpoint in the deque
                 if(rs.contains(checkPoints.get(aux))){
                     i--;
                 }
@@ -82,24 +99,24 @@ public class RaceTrack implements Drawable{
                 }
             }
         }
-		/*
-		System.out.print(((Checkpoint)(rs.pop())).getID());
-		System.out.print(((Checkpoint)(rs.pop())).getID());
-		System.out.print(((Checkpoint)(rs.pop())).getID());
-		System.out.println(((Checkpoint)(rs.pop())).getID());*/
     }
 
+    //private method and calculates distance between two checkpoints
     private double calcDistanceTwoPoints(Checkpoint cp1, Checkpoint cp2){
 
         double distance;
+        //we use pythagorean theorem
         distance = Math.sqrt((Math.pow(cp2.getYValue() - cp1.getYValue(), 2)) +
                 (Math.pow(cp2.getXValue() - cp1.getXValue(), 2)));
 
         return distance;
     }
 
+    //method that returns total disctance between all checkpoints sequence
     public double calcDistanceTotal(int raceTrackID){
 
+    	//auxiliary array that will help us access easily to the elements
+    	//of each deque without causing any unintentional deletion on the deque
         Drawable aux[] = new Drawable[4];
 
         switch(raceTrackID){
@@ -131,6 +148,7 @@ public class RaceTrack implements Drawable{
         }
         double totalDistance = 0;
 
+        //for this game, we calculate the distance between the four checkpoints
         totalDistance = calcDistanceTwoPoints((Checkpoint)aux[0], (Checkpoint)aux[1])
                 + calcDistanceTwoPoints((Checkpoint)aux[1], (Checkpoint)aux[2])
                 + calcDistanceTwoPoints((Checkpoint)aux[2], (Checkpoint)aux[3])
@@ -139,10 +157,7 @@ public class RaceTrack implements Drawable{
         return totalDistance;
     }
 
-    //This method produces a null value sometimes, I'm thinking there might be a problem with the method that makes the routes, try choosing 5, 6, 7 cars you will see
-    //And also because it returns ArrayDeque<Drawable> objects when forexample car1 gets rt1 and by chance car2 also gets rt1, rt1 will
-    //only have 3 checkpoints because car1 already popped it. I can change the raceEvent so that the cars get routes in order but still
-    //there are only 4 routes so that would reuire atlest 0 routes...because the user can choose 10 calls. Your call.	
+    //method that returns the requested deque. will be useful when assigned car to a deque.
     public ArrayDeque<Drawable> getRoute(int n){
 
         switch(n){
@@ -163,8 +178,13 @@ public class RaceTrack implements Drawable{
         return null;
 
     }
+    
+    //method that returns a string containing the letters of the sequence of the 
+    //requested deque
     public String getSequence(int raceTrackID){
 
+    	//auxiliary array that will help us access easily to the elements
+    	//of each deque without causing any unintentional deletion on the deque
         Drawable aux[] = new Drawable[4];
 
         switch(raceTrackID){
