@@ -50,7 +50,6 @@ public class RaceEvent
       
       c.setSpeed();
       speeds[i] = c.getSpeed();
-      System.out.println(c.getName() + ": " + c.getSpeed() + "");
       i++;
     }
     return speeds;
@@ -58,7 +57,7 @@ public class RaceEvent
   
   public String getContestants()
   {
-    String view = "Racer                Speed                 Distance                     Path"
+    String view = "Racer                Speed                 Distance                Path"
       +"\n----------------------------------------------------------------------------\n";
     ArrayList<Car> newArrayList = new ArrayList<Car>();
     //cars are sorted by speed
@@ -80,7 +79,7 @@ public class RaceEvent
     return view;
   }
   
-  public Car getWinner(){ 
+  public String getWinner(){ 
     
     double[] aux = calculateSpeeds();
     
@@ -93,7 +92,8 @@ public class RaceEvent
         indexMax = i;
       }
     }
-    return contestants.get(indexMax); 
+    Car c = contestants.get(indexMax); 
+    return "Name: "+c.getName()+"\nSpeed: "+c.getSpeedString()+"\nDistance: "+c.getDistance()+"\n";
     
   }
   
