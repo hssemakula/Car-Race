@@ -34,6 +34,8 @@ public class Car implements Drawable {
     this.name = name;
     this.user = user;
     setPathString(path);
+    engine = 6000;
+    tire = 6000;
     
     x = ((Checkpoint)path.peek()).getXValue();
     y = ((Checkpoint)path.pop()).getYValue() + 67;
