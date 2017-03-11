@@ -52,6 +52,7 @@ public class MainPanel extends JPanel implements ActionListener
   private int startCounter;  //Counter displayed before the beginning of the game
   private JTextArea scoreBoard; //Text area that displays all statistics(speed, distance and path) of all cars as race happens
   
+  //Constructor: sets size of panel and calls the innitilize method
   public MainPanel()
   {
     this.setPreferredSize(new Dimension(1300, 500));
