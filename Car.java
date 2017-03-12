@@ -290,7 +290,7 @@ public class Car implements Drawable {
     g2.setColor(color);
     g2.drawImage(img, null, x, y);    
     if(user){
-     g2.setFont( new Font("dialog", Font.PLAIN, 10));
+     g2.setFont( new Font("dialog", Font.BOLD, 10));
       g2.drawString(name, x, y+ 30);
     }
   }
