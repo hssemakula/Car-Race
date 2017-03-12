@@ -88,12 +88,14 @@ public class Car implements Drawable {
     
   }
 
+  //Hillary
   //gets the next checkpoint's x and y coordinates so the car knows where to go next
   public void getNextCheckpoint(){
     newX = ((Checkpoint)path.peek()).getXValue();
     newY = ((Checkpoint)path.pop()).getYValue() + 67;
   }
 
+  //Hillary, Rodrigo
   //move method physically moves the car within the MainPanel
   public boolean move() {
     
@@ -178,6 +180,9 @@ public class Car implements Drawable {
    * @param int x2 sets the car's final x value after moving
    * @param int y1 sets the car's initial y value before moving
    * @param int y2 sets the car's final y value after moving
+   *        This method updates the distance that the car has
+   *        traveled.
+   *        Hillary
    */
   public void updateDistance(int x1, int x2, int y1, int y2) {
     double displacement = Math.sqrt(Math.pow((double)(x2 - x1),2) + Math.pow((double)(y2 - y1),2));
@@ -190,7 +195,13 @@ public class Car implements Drawable {
   public String getDistance() {
     return String.format("%6.2f",distance);
   }
-  
+
+  /* @param ArrayDeque<Drawable> path takes in an ArrayDeque of type Drawable
+   *        to handle the creation of checkpoint origin spots in the GUI For
+   *        the Car objects
+   * Sets the path of the car to travel from one checkpoint to another.
+   * Hillary, Rodrigo
+   */
   public void setPathString(ArrayDeque<Drawable> path)
   {
     pathString = "";
@@ -207,6 +218,7 @@ public class Car implements Drawable {
   }
 
   //sets the engine value, and subtracts a random integer value from the engine's value.
+  //Hillary
   public int setEngine() {
     int randInt = (int)(Math.random() * 2.5);
     engine -= randInt;
@@ -219,6 +231,7 @@ public class Car implements Drawable {
   }
 
   //sets the tire value, and subtracts a random integer value from the engine's value.
+  //Hillary
   public int setTire() {
     int randInt = (int)(Math.random() * 2.5);
     tire -= randInt;
@@ -231,6 +244,7 @@ public class Car implements Drawable {
   }
 
   //set displacement is simply the setEngine methods and setTire methods added together.
+  //Hillary, Rodrigo
   public int setDisplacement() {
     return setEngine() + setTire();
   }
@@ -246,6 +260,7 @@ public class Car implements Drawable {
   }
 
   //returns/ displays the speed of the car as a String in the GUI underneath the "speed" tab
+  //Hillary
   public String getSpeedString() {
     return String.format("%10.3f", speed);
   }
@@ -256,6 +271,7 @@ public class Car implements Drawable {
   }
 
   //toString displays the statistics of the car objects
+  //Hillary
   public String toString() {
     String padding = "";
     if(name.length() == 1) padding +="           ";
@@ -268,6 +284,7 @@ public class Car implements Drawable {
   }
 
   //draw method uses Graphics2D to draw the icon of the car object within the file.
+  //Hillary, Rodrigo
   @Override
   public void draw(Graphics2D g2) {
     g2.setColor(color);
