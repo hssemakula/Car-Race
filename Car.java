@@ -1,3 +1,13 @@
+/* Sarah Higgins, Hillary Ssemakula, Rodrigo Choque Cardenas
+ *
+ * Car class. This class is responsible for the creation of Car objects.  The car objects are the actual
+ *      moving objects within he MainPanel when it loads.  The car objects race each other with random
+ *      speed values assigned to them.  The class implements the Drawable interface which allows it
+ *      to be drawn within the RaceEvent.
+ */
+
+
+//import statements
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -6,11 +16,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-/**
- * Created by Sarah on 3/6/17.
- */
+//Drawable interface allows an instance of this class to draw itself
 public class Car implements Drawable {
-  
+
+  //attributes/ instance variables
   private int x;
   private int y;
   private int newX, newY;
@@ -28,7 +37,8 @@ public class Car implements Drawable {
   private boolean user;
   
   ArrayDeque<Drawable> path;
-  
+
+  //Car constructor
   public Car(ArrayDeque<Drawable> path, String name, boolean user, Color usrColor) {
     this.path = path;
     this.name = name;
@@ -36,11 +46,13 @@ public class Car implements Drawable {
     setPathString(path);
     engine = 6000;
     tire = 6000;
-    
+
+    //Car's position is determined by the coordinates of the Checkpoint it is assigned to.
     x = ((Checkpoint)path.peek()).getXValue();
     y = ((Checkpoint)path.pop()).getYValue() + 67;
     getNextCheckpoint();
-    
+
+    //Car is drawn by an imported icon within the same folder as its code.
     try {
       img = ImageIO.read(new File("carclipart.png"));
       Color carColor = new Color((int)(Math.random() * 25.6)*10, (int)(Math.random() * 25.6)*10, (int)(Math.random() * 25)*10);
@@ -75,12 +87,14 @@ public class Car implements Drawable {
     }
     
   }
-  
+
+  //gets the next checkpoint's x and y coordinates so the car knows where to go next
   public void getNextCheckpoint(){
     newX = ((Checkpoint)path.peek()).getXValue();
     newY = ((Checkpoint)path.pop()).getYValue() + 67;
   }
-  
+
+  //move method physically moves the car within the MainPanel
   public boolean move() {
     
     int x1 = x;
@@ -145,18 +159,25 @@ public class Car implements Drawable {
     return false;
   }
   
+  /*setTime()
+   * @param long s starts the timer for the Car object
+   *        This method sets the timer of the Car
+   */
   public void setTime(long s) {
     start = s;
     time = System.currentTimeMillis() - start;
   }
 
+  //returns the time of the Car
   public long getTime() {
     return time;
   }
-  /* Hillary. Method updateDistance. @params int x1, int x2, int y1, int y2. This method takes in 4 values
-   * and uses the mathematical distance formular to find the distance between the pair of coordinates
-   * Distance found is between (x1, y1) and (x2, y2). The distance the car has moved is updated by increasing it
-   * by the distance between the line. The speed of the car is calculated from this distance also.
+
+  /*
+   * @param int x1 sets the car's initial x value before moving
+   * @param int x2 sets the car's final x value after moving
+   * @param int y1 sets the car's initial y value before moving
+   * @param int y2 sets the car's final y value after moving
    */
   public void updateDistance(int x1, int x2, int y1, int y2) {
     double displacement = Math.sqrt(Math.pow((double)(x2 - x1),2) + Math.pow((double)(y2 - y1),2));
@@ -164,11 +185,11 @@ public class Car implements Drawable {
     setTime(start);
     setSpeed();
   }
-  
+
+  //returns the distance the car has traveled
   public String getDistance() {
     return String.format("%6.2f",distance);
   }
-  
   
   public void setPathString(ArrayDeque<Drawable> path)
   {
@@ -179,53 +200,62 @@ public class Car implements Drawable {
       pathString += checkpoint.getID()+"";
     }
   }
-  
+
+  //returns the Car's path
   public String getPath() {
     return pathString;
   }
-  
+
+  //sets the engine value, and subtracts a random integer value from the engine's value.
   public int setEngine() {
     int randInt = (int)(Math.random() * 2.5);
     engine -= randInt;
     return randInt;
   }
-  
+
+  //returns the engine's randomized value
   public int getEngine() {
     return engine;
   }
-  
+
+  //sets the tire value, and subtracts a random integer value from the engine's value.
   public int setTire() {
     int randInt = (int)(Math.random() * 2.5);
     tire -= randInt;
     return randInt;
   }
-  
+
+  //returns the tire's randomized value
   public int getTire() {
     return tire;
   }
 
+  //set displacement is simply the setEngine methods and setTire methods added together.
   public int setDisplacement() {
     return setEngine() + setTire();
   }
-  
+
+  //setSpeed method sets the speed of each car, which will be a random value for each individual car
   public void setSpeed() {
     speed = distance/(double)(time/1000);
   }
-  
+
+  //returns the speed of the car
   public double getSpeed() {
      return speed;
   }
-  
+
+  //returns/ displays the speed of the car as a String in the GUI underneath the "speed" tab
   public String getSpeedString() {
     return String.format("%10.3f", speed);
   }
-  
+
+  //returns the name of the car
   public String getName() {
     return name;
   }
-  /* Hillary. Method @override toString(). returns the name, speed, distance and path of the car on one line.
-   * depending on the length of the car's name, the string is padded with spaces.
-   */
+
+  //toString displays the statistics of the car objects
   public String toString() {
     String padding = "";
     if(name.length() == 1) padding +="           ";
@@ -236,14 +266,14 @@ public class Car implements Drawable {
     else if(name.length() == 6) padding +=" ";
     return name +padding + "          " + getSpeedString() + "               " + getDistance()+"                    "+pathString;
   }
-  
+
+  //draw method uses Graphics2D to draw the icon of the car object within the file.
   @Override
   public void draw(Graphics2D g2) {
     g2.setColor(color);
-    g2.drawImage(img, null, x, y);  
-    /*Hillary: This code enables the name of the car to be drawn at it's bottom, if it is the user's car */
+    g2.drawImage(img, null, x, y);    
     if(user){
-     g2.setFont( new Font("dialog", Font.BOLD, 10));
+     g2.setFont( new Font("dialog", Font.PLAIN, 10));
       g2.drawString(name, x, y+ 30);
     }
   }
