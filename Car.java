@@ -55,8 +55,13 @@ public class Car implements Drawable {
     //Car is drawn by an imported icon within the same folder as its code.
     try {
       img = ImageIO.read(new File("carclipart.png"));
+      //the color of the cars will be randonm;y generated
       Color carColor = new Color((int)(Math.random() * 25.6)*10, (int)(Math.random() * 25.6)*10, (int)(Math.random() * 25)*10);
+      //but for user, the color will be the one received in the constructor
       if(user){
+        
+        //the for loops change small areas of pixels of the cars image
+        //this is helpful since we will only need one image icon for the entire game
         for(int i = 10; i <= 20; i++){
           for(int j = 5; j <= 13; j++){
             img.setRGB(i, j, usrColor.getRGB());
@@ -102,15 +107,21 @@ public class Car implements Drawable {
     int x1 = x;
     int y1 = y;
     
+    //if car needs to move drom right to left, the car direction must be negative
     boolean isNegative = false;
     
     if ((newX - x) < 0) 
       isNegative = true;
     
     int displacement = setDisplacement();
+    //the car will move according to linear displacement y=mx+b
+    //thus we need the slope between two checkpoints and its y-intercept
     double slope;
     double yIntercept;
     
+    //conditionals that will determine if the car keeps moving
+    //if current coordinates of car is equeal to destination coordinates, the move method will return false
+    //thus it will mean it either needs to stop or get next checkpoint coordinates
     if (x == newX && y == newY) 
     {
       if(path.isEmpty())
@@ -122,6 +133,7 @@ public class Car implements Drawable {
         this.getNextCheckpoint();
       }
     } 
+    //if we havent reached destination checkpoint yet, we mmust find slope and y-intercept to know whats our displacement
     else if (x != newX || y != newY) 
     {
       try
@@ -145,13 +157,14 @@ public class Car implements Drawable {
         }
         else
         {
-          y += displacement;//This is in case flags are in the same vertical line which can happen
+          y += displacement;//This is in case checkpoints are in the same vertical line which can happen
           //Both x-coordinates would be the same, thus diving by 0 would be an error
           updateDistance(x, x1, y, y1);
         }
       }
       return true;
     } 
+    //this will be like a stoping distamce whe car is close enought to checkpoint
     else if (Math.abs(x - newX) < 1 || Math.abs(y - newY) < 1) {
       y = newY;
       x = newX;
@@ -207,6 +220,7 @@ public class Car implements Drawable {
     pathString = "";
     for(Drawable d: path)
     {
+      //we buld the string obtaining each letter ID from each checkpoint
       Checkpoint checkpoint = (Checkpoint)d;
       pathString += checkpoint.getID()+"";
     }
@@ -244,6 +258,7 @@ public class Car implements Drawable {
   }
 
   //set displacement is simply the setEngine methods and setTire methods added together.
+  //according to this values, the car will get higher or lower displacements
   //Hillary, Rodrigo
   public int setDisplacement() {
     return setEngine() + setTire();
@@ -284,6 +299,7 @@ public class Car implements Drawable {
   }
 
   //draw method uses Graphics2D to draw the icon of the car object within the file.
+  //this method will be used by race event who will paint all cars and checkpoints
   //Hillary, Rodrigo
   @Override
   public void draw(Graphics2D g2) {
